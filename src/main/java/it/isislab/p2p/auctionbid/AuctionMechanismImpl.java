@@ -50,17 +50,20 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 	
 	public boolean createAuction(String _auction_name, Date _end_time, double _reserved_price, String _description) {
 		try {
-			Auction auction = new Auction(_auction_name, _end_time, _reserved_price, _description, owner);
-			FutureGet futureGet = _dht.get(Number160.createHash("auctions")).start();
-			futureGet.awaitUninterruptibly();
-			if (futureGet.isSuccess()) 
-				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
-			
-			auctions_names.add(_auction_name);
 
-			_dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
-			_dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
-			return true;
+			if (checkAuction(_auction_name) == null) {
+				Auction auction = new Auction(_auction_name, _end_time, _reserved_price, _description, owner);
+				FutureGet futureGet = _dht.get(Number160.createHash("auctions")).start();
+				futureGet.awaitUninterruptibly();
+				if (futureGet.isSuccess()) 
+					auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+				
+				auctions_names.add(_auction_name);
+
+				_dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
+				return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,6 +77,10 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 			futureGet.awaitUninterruptibly();
 
 			if (futureGet.isSuccess()) {
+
+				if(futureGet.isEmpty()) {
+					_dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+				}
 				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
 
 				if (auctions_names.contains(_auction_name)) {
