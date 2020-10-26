@@ -133,7 +133,7 @@ public class Example {
 
 	}
 	public static void printMenu(TextTerminal terminal) {
-		terminal.printf("\n1 - HELLO FROM DANI\n");
+		terminal.printf("\n1 - HELLO FROM DANI.\n");
 		terminal.printf("\n1 - CREATE TOPIC\n");
 		terminal.printf("\n2 - SUBSCRIBE TOPIC\n");
 		terminal.printf("\n3 - UN SUBSCRIBE ON TOPIC\n");
