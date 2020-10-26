@@ -76,7 +76,7 @@
 							<archive>
 								<manifest>
 									<mainClass>
-										it.isislab.p2p.auctionbid.Example
+										it.isislab.p2p.auctionbid.ExampleAuc
 									</mainClass>
 								</manifest>
 							</archive>
