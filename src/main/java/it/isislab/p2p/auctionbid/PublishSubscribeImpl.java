@@ -1,4 +1,4 @@
-package it.isislab.p2p.chat;
+package it.isislab.p2p.auctionbid;
 
 import java.io.IOException;
 import java.net.InetAddress;

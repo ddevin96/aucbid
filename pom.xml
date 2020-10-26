@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>it.isislab.p2p</groupId>
-	<artifactId>publishsubscribe</artifactId>
+	<artifactId>ab</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>P2P Publish Subscribe Client</name>
+	<name>P2P AuctionBid</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -76,7 +76,7 @@
 							<archive>
 								<manifest>
 									<mainClass>
-										it.isislab.p2p.chat.Example
+										it.isislab.p2p.auctionbid.Example
 									</mainClass>
 								</manifest>
 							</archive>

@@ -1,4 +1,4 @@
-package it.isislab.p2p.chat;
+package it.isislab.p2p.auctionbid;
 
 public interface MessageListener {
 
