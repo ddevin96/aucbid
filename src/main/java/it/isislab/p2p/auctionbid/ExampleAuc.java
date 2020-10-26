@@ -110,12 +110,9 @@ public class ExampleAuc {
 	}
 	public static void printMenu(TextTerminal terminal) {
 		terminal.printf("\nHELLO FROM DANI\n");
-		terminal.printf("\n1 - CREATE TOPIC\n");
-		terminal.printf("\n2 - SUBSCRIBE TOPIC\n");
-		terminal.printf("\n3 - UN SUBSCRIBE ON TOPIC\n");
-		terminal.printf("\n4 - PUBLISH ON TOPIC\n");
-		terminal.printf("\n5 - EXIT\n");
-
+		terminal.printf("\n1 - CREATE BID\n");
+		terminal.printf("\n2 - CHECK BID \n");
+		terminal.printf("\n3 - LEAVE\n");
 	}
 
 
