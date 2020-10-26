@@ -1,6 +1,6 @@
-package main.java.it.isislab.p2p.auctionbid;
+package it.isislab.p2p.auctionbid;
 
-import util.java.Date;
+import java.util.Date;
 
 /**
 	 * Creates a new auction for a good.
@@ -15,12 +15,12 @@ public class Auction {
     Date _end_time;
     Double _reserved_price;
     String _description;
-    Int _owner;
+    int _owner;
 
     public Auction() {
     }
 
-    public Auction(String auction_name, Date end_time, Double reserved_price, String description, Int owner) {
+    public Auction(String auction_name, Date end_time, Double reserved_price, String description, int owner) {
         _auction_name = auction_name;
         _end_time = end_time;
         _reserved_price = reserved_price;
@@ -60,12 +60,19 @@ public class Auction {
         this._description = desc;
     }
 
-    public Int get_owner() {
+    public int get_owner() {
         return _owner;
     }
 
-    public void set_ownew(Int own) {
+    public void set_owner(int own) {
         this._owner = own;
     }
+    
+    @Override
+    public String toString() {
+        return "Auction name: " + _auction_name + "\nEnd time: " + _end_time + "\nReserved price: " 
+        + _reserved_price + "\nDescription: " + _description + "\nOwner: " + _owner + "\n";
+    }
+
     
 }

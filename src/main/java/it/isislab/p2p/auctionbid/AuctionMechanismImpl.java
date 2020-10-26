@@ -1,4 +1,4 @@
-package main.java.it.isislab.p2p.auctionbid;
+package it.isislab.p2p.auctionbid;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -48,7 +48,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 	
 	public boolean createAuction(String _auction_name, Date _end_time, double _reserved_price, String _description) {
 		try {
-			FutureGet futureGet = _dht.get(Number160.createHash(_topic_name)).start();
+			FutureGet futureGet = _dht.get(Number160.createHash(_auction_name)).start();
 			futureGet.awaitUninterruptibly();
 			if (futureGet.isSuccess() && futureGet.isEmpty()) 
 				_dht.put(Number160.createHash(_auction_name)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
@@ -59,17 +59,18 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		return false;
 	}
 
+	
 	public String checkAuction(String _auction_name){
-
+		return "a";
 	}
 
 	public String placeAbid(String _auction_name, double _bid_amount){
-
+		return "b";
 	}
-
+	
 	public boolean leaveNetwork() {
 		
-		for(String topic: new ArrayList<String>(s_topics)) unsubscribeFromTopic(topic);
+		//for(String topic: new ArrayList<String>(s_topics)) unsubscribeFromTopic(topic);
 		_dht.peer().announceShutdown().start().awaitUninterruptibly();
 		return true;
 	}
