@@ -1,0 +1,71 @@
+package main.java.it.isislab.p2p.auctionbid;
+
+import util.java.Date;
+
+/**
+	 * Creates a new auction for a good.
+	 * @param _auction_name a String, the name identify the auction.
+	 * @param _end_time a Date that is the end time of an auction.
+	 * @param _reserved_price a double value that is the reserve minimum pricing selling.
+	 * @param _description a String describing the selling goods in the auction.
+*/
+public class Auction {
+    
+    String _auction_name;
+    Date _end_time;
+    Double _reserved_price;
+    String _description;
+    Int _owner;
+
+    public Auction() {
+    }
+
+    public Auction(String auction_name, Date end_time, Double reserved_price, String description, Int owner) {
+        _auction_name = auction_name;
+        _end_time = end_time;
+        _reserved_price = reserved_price;
+        _description = description;
+        _owner = owner;
+    }
+
+    public String get_auction_name() {
+        return _auction_name;
+    }
+
+    public void set_auction_name(String name) {
+        this._auction_name = name;
+    }
+
+    public Date get_end_time() {
+        return _end_time;
+    }
+    
+    public void set_end_time(Date time) {
+        this._end_time = time;
+    }
+
+    public Double get_reserved_price() {
+        return _reserved_price;
+    }
+
+    public void set_reserved_price(Double price) {
+        this._reserved_price = price;
+    }
+
+    public String get_description() {
+        return _description;
+    }
+
+    public void set_description(String desc) {
+        this._description = desc;
+    }
+
+    public Int get_owner() {
+        return _owner;
+    }
+
+    public void set_ownew(Int own) {
+        this._owner = own;
+    }
+    
+}
