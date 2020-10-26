@@ -66,8 +66,8 @@ public class ExampleAuc {
 				case 1:
 					terminal.printf("\nENTER BID NAME\n");
 					String name = textIO.newStringInputReader()
-					        .withDefaultValue("default-topic")
-					        .read("Name:");
+					        .withDefaultValue("abc")
+					        .read("Bid name:");
 					if(peer.createAuction(name, new Date(), 100, "prova"))
 						terminal.printf("\nBID %s SUCCESSFULLY CREATED\n",name);
 					else
@@ -76,8 +76,8 @@ public class ExampleAuc {
 				case 2:
 					terminal.printf("\nENTER BID NAME TO FIND\n");
 					String sname = textIO.newStringInputReader()
-					        .withDefaultValue("default-topic")
-							.read("Name:");
+					        .withDefaultValue("abc")
+							.read("Bid name:");
 					String checked = peer.checkAuction(sname);
 					if(checked!=null)
 						terminal.printf("\n SUCCESSFULLY FIND %s\n",sname);
@@ -109,7 +109,6 @@ public class ExampleAuc {
 
 	}
 	public static void printMenu(TextTerminal terminal) {
-		terminal.printf("\nHELLO FROM DANI\n");
 		terminal.printf("\n1 - CREATE BID\n");
 		terminal.printf("\n2 - CHECK BID \n");
 		terminal.printf("\n3 - LEAVE\n");

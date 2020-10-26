@@ -85,8 +85,13 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
 
 				if (auctions_names.contains(_auction_name)) {
-					Auction auction = (Auction) futureGet.dataMap().values().iterator().next().object();
-					return auction.get_auction_name();
+					FutureGet futureGet2 = dht.get(Number160.createHash(_auction_name)).start();
+					futureGet2.awaitUninterruptibly();
+
+					if (futureGet2.isSuccess()) {
+						Auction auction = (Auction) futureGet.dataMap().values().iterator().next().object();
+						return auction.get_auction_name();
+					}
 				}
 			}
 		} catch (Exception e) {
