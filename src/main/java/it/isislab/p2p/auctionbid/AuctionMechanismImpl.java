@@ -23,7 +23,8 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 	final private PeerDHT _dht;
 	final private int DEFAULT_MASTER_PORT=4000;
 	
-	final private ArrayList<String> s_topics=new ArrayList<String>();
+	ArrayList<String> auctions_names =new ArrayList<String>();
+	int owner;
 
 	public AuctionMechanismImpl( int _id, String _master_peer, final MessageListener _listener) throws Exception
 	{
@@ -34,6 +35,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		fb.awaitUninterruptibly();
 		if(fb.isSuccess()) {
 			peer.discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
+			owner = _id;
 		}else {
 			throw new Exception("Error in master peer bootstrap.");
 		}
@@ -48,10 +50,16 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 	
 	public boolean createAuction(String _auction_name, Date _end_time, double _reserved_price, String _description) {
 		try {
-			FutureGet futureGet = _dht.get(Number160.createHash(_auction_name)).start();
+			Auction auction = new Auction(_auction_name, _end_time, _reserved_price, _description, owner);
+			FutureGet futureGet = _dht.get(Number160.createHash("auctions")).start();
 			futureGet.awaitUninterruptibly();
-			if (futureGet.isSuccess() && futureGet.isEmpty()) 
-				_dht.put(Number160.createHash(_auction_name)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+			if (futureGet.isSuccess()) 
+				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+			
+			auctions_names.add(_auction_name);
+
+			_dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+			_dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,6 +69,21 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 
 	
 	public String checkAuction(String _auction_name){
+		try {
+			FutureGet futureGet = _dht.get(Number160.createHash("auctions")).start();
+			futureGet.awaitUninterruptibly();
+
+			if (futureGet.isSuccess()) {
+				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+
+				if (auctions_names.contains(_auction_name)) {
+					Auction auction = (Auction) futureGet.dataMap().values().iterator().next().object();
+					return auction.get_auction_name();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "a";
 	}
 
