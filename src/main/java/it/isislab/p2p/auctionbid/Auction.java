@@ -1,6 +1,7 @@
 package it.isislab.p2p.auctionbid;
 
 import java.util.Date;
+import java.io.Serializable;
 
 /**
 	 * Creates a new auction for a good.
@@ -9,8 +10,12 @@ import java.util.Date;
 	 * @param _reserved_price a double value that is the reserve minimum pricing selling.
 	 * @param _description a String describing the selling goods in the auction.
 */
-public class Auction {
+public class Auction implements Serializable{
     
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     String _auction_name;
     Date _end_time;
     Double _reserved_price;
