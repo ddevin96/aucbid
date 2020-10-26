@@ -20,26 +20,26 @@ import net.tomp2p.storage.Data;
 
 public class AuctionMechanismImpl implements AuctionMechanism{
 	final private Peer peer;
-	final private PeerDHT _dht;
+	final private PeerDHT dht;
 	final private int DEFAULT_MASTER_PORT=4000;
 	
-	ArrayList<String> auctions_names =new ArrayList<String>();
+	ArrayList<String> auctions_names = new ArrayList<String>();
 	int owner;
 
 	public AuctionMechanismImpl( int _id, String _master_peer, final MessageListener _listener) throws Exception
 	{
-		 peer= new PeerBuilder(Number160.createHash(_id)).ports(DEFAULT_MASTER_PORT+_id).start();
-		_dht = new PeerBuilderDHT(peer).start();	
+		peer= new PeerBuilder(Number160.createHash(_id)).ports(DEFAULT_MASTER_PORT+_id).start();
+		dht = new PeerBuilderDHT(peer).start();	
 		
 		FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(_master_peer)).ports(DEFAULT_MASTER_PORT).start();
 		fb.awaitUninterruptibly();
 		if(fb.isSuccess()) {
 			peer.discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
-			owner = _id;
 		}else {
 			throw new Exception("Error in master peer bootstrap.");
 		}
-		
+		owner = _id;
+
 		peer.objectDataReply(new ObjectDataReply() {
 			
 			public Object reply(PeerAddress sender, Object request) throws Exception {
@@ -53,15 +53,15 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 
 			if (checkAuction(_auction_name) == null) {
 				Auction auction = new Auction(_auction_name, _end_time, _reserved_price, _description, owner);
-				FutureGet futureGet = _dht.get(Number160.createHash("auctions")).start();
+				FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
 				futureGet.awaitUninterruptibly();
 				if (futureGet.isSuccess()) 
 					auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
 				
 				auctions_names.add(_auction_name);
 
-				_dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
-				_dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
+				dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+				dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
 				return true;
 			}
 		} catch (Exception e) {
@@ -73,13 +73,14 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 	
 	public String checkAuction(String _auction_name){
 		try {
-			FutureGet futureGet = _dht.get(Number160.createHash("auctions")).start();
+			FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
 			futureGet.awaitUninterruptibly();
 
 			if (futureGet.isSuccess()) {
 
 				if(futureGet.isEmpty()) {
-					_dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+					dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+					return null;
 				}
 				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
 
@@ -101,7 +102,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 	public boolean leaveNetwork() {
 		
 		//for(String topic: new ArrayList<String>(s_topics)) unsubscribeFromTopic(topic);
-		_dht.peer().announceShutdown().start().awaitUninterruptibly();
+		dht.peer().announceShutdown().start().awaitUninterruptibly();
 		return true;
 	}
 }
