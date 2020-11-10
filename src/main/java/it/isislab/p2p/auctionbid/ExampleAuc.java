@@ -2,7 +2,10 @@ package it.isislab.p2p.auctionbid;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
@@ -56,6 +59,11 @@ public class ExampleAuc {
 			
 			terminal.printf("\nStaring peer id: %d on master node: %s\n",
 					id, master);
+
+			//set timezone to Rome
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
+
 			while(true) {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				Date actualDate = new Date();
