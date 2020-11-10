@@ -57,6 +57,10 @@ public class ExampleAuc {
 			terminal.printf("\nStaring peer id: %d on master node: %s\n",
 					id, master);
 			while(true) {
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date actualDate = new Date();
+				terminal.printf("\nActual time: %s\n", formatter.format(actualDate));
+
 				printMenu(terminal);
 				
 				int option = textIO.newIntInputReader()
@@ -70,21 +74,9 @@ public class ExampleAuc {
 					        .withDefaultValue("abcd")
 							.read("Bid name: ");
 					String date = textIO.newStringInputReader()
-							.withDefaultValue("yyyy-mm-dd")
+							.withDefaultValue("yyyy-mm-dd hh:mm:ss")
 							.read("Enter expiration date: ");
-					// int hours = textIO.newIntInputReader()
-					// 		.withDefaultValue(0)
-					// 		.read("Enter hours: ");
-					// int minutes = textIO.newIntInputReader()
-					// 		.withDefaultValue(0)
-					// 		.read("Enter minutes: ");;
-					// int seconds = textIO.newIntInputReader()
-					// 		.withDefaultValue(0)
-					// 		.read("Enter seconds: ");;
 					Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
-					// newDate.setHours(hours);
-					// newDate.setMinutes(minutes);
-					// newDate.setSeconds(seconds);
 					Double price = textIO.newDoubleInputReader()
 							.withDefaultValue(100.0)
 							.read("Enter reserved price: ");
