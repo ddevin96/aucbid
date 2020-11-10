@@ -89,15 +89,17 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 					futureGet2.awaitUninterruptibly();
 
 					if (futureGet2.isSuccess()) {
-						Auction auction = (Auction) futureGet.dataMap().values().iterator().next().object();
+						Auction auction = (Auction) futureGet2.dataMap().values().iterator().next().object();
 						return auction.get_auction_name();
+					} else {
+						return null;
 					}
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "a";
+		return null;
 	}
 
 	public String placeAbid(String _auction_name, double _bid_amount){
