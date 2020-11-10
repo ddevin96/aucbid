@@ -1,6 +1,7 @@
 package it.isislab.p2p.auctionbid;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
@@ -67,8 +68,12 @@ public class ExampleAuc {
 					terminal.printf("\nENTER BID NAME\n");
 					String name = textIO.newStringInputReader()
 					        .withDefaultValue("abc")
-					        .read("Bid name:");
-					if(peer.createAuction(name, new Date(), 100, "prova"))
+							.read("Bid name:");
+					String date = textIO.newStringInputReader()
+							.withDefaultValue("yyyy-mm-dd")
+							.read("Enter expiration date: ");
+					Date newDate = new SimpleDateFormat("yyyy--MM-dd").parse(date);
+					if(peer.createAuction(name, newDate, 100, "prova"))
 						terminal.printf("\nBID %s SUCCESSFULLY CREATED\n",name);
 					else
 						terminal.printf("\nERROR IN BID CREATION\n");
@@ -82,7 +87,7 @@ public class ExampleAuc {
 					if(checked!=null)
 						terminal.printf("\n SUCCESSFULLY FIND %s\n",sname);
 					else
-						terminal.printf("\nERROR IN FIND\n");
+						terminal.printf("\nNO AUCTION FIND WITH THAT NAME\n");
 					break;
 				case 3:
 					terminal.printf("\nARE YOU SURE TO LEAVE THE NETWORK?\n");
