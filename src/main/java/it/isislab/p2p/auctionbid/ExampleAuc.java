@@ -59,15 +59,11 @@ public class ExampleAuc {
 			
 			terminal.printf("\nStaring peer id: %d on master node: %s\n",
 					id, master);
-
-			//set timezone to Rome
-			Calendar cal = Calendar.getInstance();
-			cal.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
 			
 			while(true) {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				//Date actualDate = new Date();
-				terminal.printf("\nActual time: %s\n", cal.getTime());
+				Date actualDate = new Date();
+				terminal.printf("\nActual time: %s\n", actualDate);
 
 				printMenu(terminal);
 				
