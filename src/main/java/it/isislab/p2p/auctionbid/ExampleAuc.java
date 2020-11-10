@@ -84,9 +84,10 @@ public class ExampleAuc {
 					        .withDefaultValue("abc")
 							.read("Bid name:");
 					String checked = peer.checkAuction(sname);
-					if(checked!=null)
+					if(checked!=null) {
 						terminal.printf("\n SUCCESSFULLY FIND %s\n",sname);
-					else
+						terminal.printf("\n SUCCESSFULLY DATE %s\n",checked);
+					} else
 						terminal.printf("\nNO AUCTION FIND WITH THAT NAME\n");
 					break;
 				case 3:
