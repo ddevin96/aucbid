@@ -67,13 +67,20 @@ public class ExampleAuc {
 				case 1:
 					terminal.printf("\nENTER BID NAME\n");
 					String name = textIO.newStringInputReader()
-					        .withDefaultValue("abc")
-							.read("Bid name:");
+					        .withDefaultValue("abcd")
+							.read("Bid name: ");
 					String date = textIO.newStringInputReader()
 							.withDefaultValue("yyyy-mm-dd")
 							.read("Enter expiration date: ");
-					Date newDate = new SimpleDateFormat("yyyy--MM-dd").parse(date);
-					if(peer.createAuction(name, newDate, 100, "prova"))
+					Date newDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+					Double price = textIO.newDoubleInputReader()
+							.withDefaultValue(100.0)
+							.read("Enter reserved price: ");
+					String description = textIO.newStringInputReader()
+							.withDefaultValue("abcdef")
+							.read("Description of product: ");
+
+					if(peer.createAuction(name, newDate, price, description))
 						terminal.printf("\nBID %s SUCCESSFULLY CREATED\n",name);
 					else
 						terminal.printf("\nERROR IN BID CREATION\n");
@@ -86,7 +93,7 @@ public class ExampleAuc {
 					String checked = peer.checkAuction(sname);
 					if(checked!=null) {
 						terminal.printf("\n SUCCESSFULLY FIND %s\n",sname);
-						terminal.printf("\n SUCCESSFULLY DATE %s\n",checked);
+						terminal.printf("\n INFORMATIONS:\n%s\n",checked);
 					} else
 						terminal.printf("\nNO AUCTION FIND WITH THAT NAME\n");
 					break;

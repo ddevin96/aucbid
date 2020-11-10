@@ -98,8 +98,8 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 
 					if (futureGet2.isSuccess()) {
 						Auction auction = (Auction) futureGet2.dataMap().values().iterator().next().object();
-						return auction.get_auction_name();
-						//return "date " + auction.get_end_time();
+						return auction.toString();
+						//return auction.get_auction_name();
 					} else {
 						return null;
 					}
