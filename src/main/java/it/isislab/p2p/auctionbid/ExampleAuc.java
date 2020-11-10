@@ -72,7 +72,19 @@ public class ExampleAuc {
 					String date = textIO.newStringInputReader()
 							.withDefaultValue("yyyy-mm-dd")
 							.read("Enter expiration date: ");
-					Date newDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+					// int hours = textIO.newIntInputReader()
+					// 		.withDefaultValue(0)
+					// 		.read("Enter hours: ");
+					// int minutes = textIO.newIntInputReader()
+					// 		.withDefaultValue(0)
+					// 		.read("Enter minutes: ");;
+					// int seconds = textIO.newIntInputReader()
+					// 		.withDefaultValue(0)
+					// 		.read("Enter seconds: ");;
+					Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
+					// newDate.setHours(hours);
+					// newDate.setMinutes(minutes);
+					// newDate.setSeconds(seconds);
 					Double price = textIO.newDoubleInputReader()
 							.withDefaultValue(100.0)
 							.read("Enter reserved price: ");
