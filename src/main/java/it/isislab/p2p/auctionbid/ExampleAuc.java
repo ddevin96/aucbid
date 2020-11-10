@@ -62,12 +62,12 @@ public class ExampleAuc {
 
 			//set timezone to Rome
 			Calendar cal = Calendar.getInstance();
-			cal.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+			cal.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
 			
 			while(true) {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				Date actualDate = new Date();
-				terminal.printf("\nActual time: %s\n", formatter.format(actualDate));
+				//Date actualDate = new Date();
+				terminal.printf("\nActual time: %s\n", cal.getTime());
 
 				printMenu(terminal);
 				
