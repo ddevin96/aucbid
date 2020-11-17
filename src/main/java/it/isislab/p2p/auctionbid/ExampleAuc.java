@@ -106,6 +106,17 @@ public class ExampleAuc {
 						terminal.printf("\nNO AUCTION FIND WITH THAT NAME\n");
 					break;
 				case 3:
+					terminal.printf("\nENTER BID NAME TO FIND TO PLACE A BID: \n");
+					String auc_name = textIO.newStringInputReader()
+							.withDefaultValue("abc")
+							.read("Bid name:");
+					Double bid_price = textIO.newDoubleInputReader()
+							.withDefaultValue(10.0)
+							.read("Enter your bid: ");
+					String bid = peer.placeAbid(auc_name, bid_price);
+					terminal.printf("\n%s\n", bid);
+					break;
+				case 4:
 					terminal.printf("\nARE YOU SURE TO LEAVE THE NETWORK?\n");
 					boolean exit = textIO.newBooleanInputReader().withDefaultValue(false).read("exit?");
 					if(exit) {
@@ -132,7 +143,8 @@ public class ExampleAuc {
 	public static void printMenu(TextTerminal terminal) {
 		terminal.printf("\n1 - CREATE BID\n");
 		terminal.printf("\n2 - CHECK BID \n");
-		terminal.printf("\n3 - LEAVE\n");
+		terminal.printf("\n3 - PLACE A BID \n");
+		terminal.printf("\n4 - LEAVE\n");
 	}
 
 

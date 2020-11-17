@@ -21,6 +21,7 @@ public class Auction implements Serializable{
     Double _reserved_price;
     String _description;
     int _owner;
+    Double max_bid;
 
     public Auction() {
     }
@@ -31,6 +32,7 @@ public class Auction implements Serializable{
         _reserved_price = reserved_price;
         _description = description;
         _owner = owner;
+        this.max_bid = 0.0;
     }
 
     public String get_auction_name() {
@@ -72,11 +74,20 @@ public class Auction implements Serializable{
     public void set_owner(int own) {
         this._owner = own;
     }
+
+    public Double get_max_bid() {
+        return max_bid;
+    }
+
+    public void set_max_bid(Double max_bid) {
+        this.max_bid = max_bid;
+    }
     
     @Override
     public String toString() {
         return "Auction name: " + _auction_name + "\nEnd time: " + _end_time + "\nReserved price: " 
-        + _reserved_price + "\nDescription: " + _description + "\nOwner: " + _owner + "\n";
+        + _reserved_price + "\nDescription: " + _description + "\nOwner: " + _owner 
+        + "\nMax_bid" + max_bid + "\n";
     }
 
     

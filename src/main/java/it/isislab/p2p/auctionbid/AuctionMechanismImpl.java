@@ -96,6 +96,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 					FutureGet futureGet2 = dht.get(Number160.createHash(_auction_name)).start();
 					futureGet2.awaitUninterruptibly();
 
+					//TODO MODIFY IN STATUS
 					if (futureGet2.isSuccess()) {
 						Auction auction = (Auction) futureGet2.dataMap().values().iterator().next().object();
 						return auction.toString();
@@ -112,7 +113,35 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 	}
 
 	public String placeAbid(String _auction_name, double _bid_amount){
-		return "b";
+
+		//check if the auction exist
+		try {
+			if (checkAuction(_auction_name) != null) {
+				FutureGet futureGet = dht.get(Number160.createHash(_auction_name)).start();
+				futureGet.awaitUninterruptibly();
+
+				if (futureGet.isSuccess()) {
+					Auction auction = (Auction) futureGet.dataMap().values().iterator().next().object();
+					
+					if (_bid_amount > auction.get_max_bid()) {
+						auction.set_max_bid(_bid_amount);
+
+						dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
+						return "You placed the bet!";
+					} else {
+						return "Your bis it too low";
+					}					
+				} else {
+					return "future get error";
+				}
+			} else {
+				//auction not find
+				return "not found an auction with that name";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "error";
 	}
 	
 	public boolean leaveNetwork() {
