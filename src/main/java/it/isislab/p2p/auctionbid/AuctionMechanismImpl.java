@@ -96,11 +96,16 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 					FutureGet futureGet2 = dht.get(Number160.createHash(_auction_name)).start();
 					futureGet2.awaitUninterruptibly();
 
-					//TODO MODIFY IN STATUS
 					if (futureGet2.isSuccess()) {
 						Auction auction = (Auction) futureGet2.dataMap().values().iterator().next().object();
-						return auction.toString();
-						//return auction.get_auction_name();
+						
+						//compare actual time with end time of the bid
+						Date now = new Date();
+						if (now.after(auction.get_end_time())) {
+							return "THIS AUCTION IS EXPIRED\n" + auction.toString();
+						} else {
+							return "THIS AUCTION IS STILL RUNNING\n" + auction.toString();
+						}
 					} else {
 						return null;
 					}
@@ -123,14 +128,22 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 				if (futureGet.isSuccess()) {
 					Auction auction = (Auction) futureGet.dataMap().values().iterator().next().object();
 					
-					if (_bid_amount > auction.get_max_bid()) {
-						auction.set_max_bid(_bid_amount);
+					Date now = new Date();
 
-						dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
-						return "You placed the bet!";
+					//compare actual time with end time of the bid
+					if (now.after(auction.get_end_time())) {
+						return "THIS AUCTION IS EXPIRED\n" + auction.toString();
 					} else {
-						return "Your bis it too low";
-					}					
+						//if not expired check if my bid is bigger then the max until now
+						if (_bid_amount > auction.get_max_bid()) {
+							auction.set_max_bid(_bid_amount);
+	
+							dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
+							return "You placed the bet!";
+						} else {
+							return "Your bid it too low";
+						}
+					}
 				} else {
 					return "future get error";
 				}

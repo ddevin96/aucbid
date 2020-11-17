@@ -68,9 +68,9 @@ public class ExampleAuc {
 				printMenu(terminal);
 				
 				int option = textIO.newIntInputReader()
-						.withMaxVal(3)
+						.withMaxVal(4)
 						.withMinVal(1)
-						.read("Option");
+						.read("\nOption");
 				switch (option) {
 				case 1:
 					terminal.printf("\nENTER BID NAME\n");

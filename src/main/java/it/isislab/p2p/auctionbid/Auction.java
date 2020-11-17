@@ -87,7 +87,7 @@ public class Auction implements Serializable{
     public String toString() {
         return "Auction name: " + _auction_name + "\nEnd time: " + _end_time + "\nReserved price: " 
         + _reserved_price + "\nDescription: " + _description + "\nOwner: " + _owner 
-        + "\nMax_bid" + max_bid + "\n";
+        + "\nMax_bid: " + max_bid + "\n";
     }
 
     
