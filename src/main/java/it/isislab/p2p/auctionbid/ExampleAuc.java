@@ -62,9 +62,8 @@ public class ExampleAuc {
 					id, master);
 			
 			while(true) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				sdf.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-				String actualDate = sdf.format(new Date());
+				
+				Date actualDate = new Date();
 				terminal.printf("\nActual time: %s\n", actualDate);
 
 				printMenu(terminal);

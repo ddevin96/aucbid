@@ -102,12 +102,8 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 						Auction auction = (Auction) futureGet2.dataMap().values().iterator().next().object();
 						
 						//compare actual time with end time of the bid
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						sdf.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-						String actualDate = sdf.format(new Date());
-						Date now = sdf.parse(actualDate);
-
-						//Date now = new Date();
+						Date now = new Date();
+						
 						if (now.after(auction.get_end_time())) {
 							return "THIS AUCTION IS EXPIRED\n" + auction.toString();
 						} else {
