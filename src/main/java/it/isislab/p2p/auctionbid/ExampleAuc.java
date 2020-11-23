@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.Locale;
 
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
@@ -61,9 +62,10 @@ public class ExampleAuc {
 					id, master);
 			
 			while(true) {
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				Date actualDate = new Date();
-				terminal.printf("\nActual time: %s\n", actualDate);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss Z", Locale.getDefault());
+				sdf.format(new Date());
+				//Date actualDate = new Date();
+				terminal.printf("\nActual time: %s\n", sdf);
 
 				printMenu(terminal);
 				
