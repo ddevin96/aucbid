@@ -63,8 +63,8 @@ public class ExampleAuc {
 			
 			while(true) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss Z", Locale.getDefault());
-				sdf.format(new Date());
-				Date actualDate = new Date();
+				String actualDateString = sdf.format(new Date());
+				Date actualDate = sdf.parse(actualDateString)
 				terminal.printf("\nActual time: %s\n", actualDate);
 
 				printMenu(terminal);
