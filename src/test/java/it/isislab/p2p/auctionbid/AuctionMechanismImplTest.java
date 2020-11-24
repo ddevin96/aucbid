@@ -10,14 +10,20 @@ import java.text.SimpleDateFormat;
 
 import org.junit.*;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
 public class AuctionMechanismImplTest {
     
-    protected AuctionMechanismImpl peer0, peer1;
+    static AuctionMechanismImpl peer0, peer1;
 
-    public AuctionMechanismImplTest() throws Exception{
+    public AuctionMechanismImplTest() {
+
+    }    
+
+    @BeforeAll
+    public static void setup() throws Exception{
         class MessageListenerImpl implements MessageListener{
 			int peerid;
 		
@@ -45,7 +51,7 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
             peer0.createAuction("canenuovo", newDate, 100.0, "bel cane nuovo");
-            Thread.sleep(2000);
+            Thread.sleep(7000);
             assertEquals("THIS AUCTION IS STILL RUNNING\n" + "canenuovo", peer1.checkAuction("canenuovo"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,8 +72,13 @@ public class AuctionMechanismImplTest {
 
     @Test
     void testCreateSameBid(TestInfo testInfo) {
-        peer0.createAuction("cane", new Date(), 100.0, "bel cane");
-        assertFalse(peer1.createAuction("cane", new Date(), 150.0, "altro cane"));
+        try {
+            peer0.createAuction("cane", new Date(), 100.0, "bel cane");
+            Thread.sleep(7000);
+            assertFalse(peer1.createAuction("cane", new Date(), 150.0, "altro cane"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
