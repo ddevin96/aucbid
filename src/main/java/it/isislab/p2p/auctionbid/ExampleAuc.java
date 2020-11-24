@@ -120,8 +120,16 @@ public class ExampleAuc {
 					break;
 				case 4:
 					ArrayList<String> arr = peer.listAuctions();
-					for (String elem : arr) {
-						terminal.println(elem + "\n");
+					if (arr != null) {
+						if (arr.size() != 0) {
+							for (String elem : arr) {
+								terminal.println(elem + "\n");
+							}
+						} else {
+							terminal.println("There are no bids\n");
+						}
+					} else {
+						terminal.println("There are no bid\n");
 					}
 					break;
 				case 5:
