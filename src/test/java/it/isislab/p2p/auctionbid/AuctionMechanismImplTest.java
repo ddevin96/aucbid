@@ -52,8 +52,13 @@ public class AuctionMechanismImplTest {
 
     @Test
     void testCheckExpiredBid(TestInfo testInfo) {
-        peer0.createAuction("cane", new Date(), 100.0, "bel cane");
-        assertEquals("THIS AUCTION IS EXPIRED\n" + "cane", peer1.checkAuction("cane"));
+        try {
+        Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
+        peer0.createAuction("miao", newDate, 100.0, "bel gatto");
+        assertEquals("THIS AUCTION IS EXPIRED\n" + "miao", peer1.checkAuction("miao"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
