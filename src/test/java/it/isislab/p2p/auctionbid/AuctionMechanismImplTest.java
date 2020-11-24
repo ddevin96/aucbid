@@ -22,6 +22,9 @@ public class AuctionMechanismImplTest {
 
     }    
 
+    /*
+    call before all test happen
+    */
     @BeforeAll
     public static void setup() throws Exception{
         class MessageListenerImpl implements MessageListener{
@@ -92,7 +95,8 @@ public class AuctionMechanismImplTest {
         arr.add("libro");
         assertEquals(arr, peer0.listAuctions());
     }
-
+    
+    // should be called after all the tests
     // @Test
     // void leaveAll(){
     //     peer0.leaveNetwork();
