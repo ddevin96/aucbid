@@ -103,11 +103,11 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 						
 						//compare actual time with end time of the bid
 						Date now = new Date();
-						
+
 						if (now.after(auction.get_end_time())) {
-							return "THIS AUCTION IS EXPIRED\n" + auction.toString();
+							return "THIS AUCTION IS EXPIRED\n" + auction.get_auction_name();
 						} else {
-							return "THIS AUCTION IS STILL RUNNING\n" + auction.toString();
+							return "THIS AUCTION IS STILL RUNNING\n" + auction.get_auction_name();
 						}
 					} else {
 						return null;

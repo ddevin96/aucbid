@@ -1,8 +1,12 @@
 package it.isislab.p2p.auctionbid;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import org.junit.*;
 import org.junit.jupiter.api.Test;
@@ -32,9 +36,30 @@ public class AuctionMechanismImplTest {
 
     @Test
     void testCreateBid(TestInfo testInfo) {
-        peer0.createAuction("cane", new Date(), 100.0, "bel cane");
-        assertNotNull(peer1.checkAuction("cane"));
+        assertTrue(peer0.createAuction("cane", new Date(), 100.0, "bel cane"));
     }
 
+    @Test
+    void testCheckRunningBid(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("cane", newDate, 100.0, "bel cane");
+            assertEquals("THIS AUCTION IS STILL RUNNING\n" + "cane", peer1.checkAuction("cane"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testCheckExpiredBid(TestInfo testInfo) {
+        peer0.createAuction("cane", new Date(), 100.0, "bel cane");
+        assertEquals("THIS AUCTION IS EXPIRED\n" + "cane", peer1.checkAuction("cane"));
+    }
+
+    @Test
+    void testCreateSameBid(TestInfo testInfo) {
+        peer0.createAuction("cane", new Date(), 100.0, "bel cane");
+        assertFalse(peer1.createAuction("cane", new Date(), 150.0, "altro cane"));
+    }
 
 }
