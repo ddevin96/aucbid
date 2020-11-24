@@ -53,17 +53,17 @@ public class AuctionMechanismImplTest {
         }
     }
 
-    @Test
-    void testCheckExpiredBid(TestInfo testInfo) {
-        try {
-            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
-            assertTrue(peer0.createAuction("miao", newDate, 100.0, "bel gatto"));
-            Thread.sleep(5000);
-            assertEquals("THIS AUCTION IS EXPIRED\n" + "miao", peer1.checkAuction("miao"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    // @Test
+    // void testCheckExpiredBid(TestInfo testInfo) {
+    //     try {
+    //         Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
+    //         assertTrue(peer0.createAuction("miao", newDate, 100.0, "bel gatto"));
+    //         Thread.sleep(5000);
+    //         assertEquals("THIS AUCTION IS EXPIRED\n" + "miao", peer1.checkAuction("miao"));
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
     @Test
     void testCreateSameBid(TestInfo testInfo) {
