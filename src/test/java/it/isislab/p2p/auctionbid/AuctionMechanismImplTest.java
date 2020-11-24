@@ -72,7 +72,7 @@ public class AuctionMechanismImplTest {
     }
 
     @AfterAll
-    void leaveAll(){
+    static void leaveAll(){
         peer0.leaveNetwork();
         peer1.leaveNetwork();
     }
