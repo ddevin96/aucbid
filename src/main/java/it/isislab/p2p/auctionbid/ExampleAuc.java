@@ -2,6 +2,7 @@ package it.isislab.p2p.auctionbid;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -69,7 +70,7 @@ public class ExampleAuc {
 				printMenu(terminal);
 				
 				int option = textIO.newIntInputReader()
-						.withMaxVal(4)
+						.withMaxVal(5)
 						.withMinVal(1)
 						.read("\nOption");
 				switch (option) {
@@ -118,6 +119,12 @@ public class ExampleAuc {
 					terminal.printf("\n%s\n", bid);
 					break;
 				case 4:
+					ArrayList<String> arr = peer.listAuctions();
+					for (String elem : arr) {
+						terminal.println(elem + "\n");
+					}
+					break;
+				case 5:
 					terminal.printf("\nARE YOU SURE TO LEAVE THE NETWORK?\n");
 					boolean exit = textIO.newBooleanInputReader().withDefaultValue(false).read("exit?");
 					if(exit) {
@@ -145,7 +152,8 @@ public class ExampleAuc {
 		terminal.printf("\n1 - CREATE BID\n");
 		terminal.printf("\n2 - CHECK BID \n");
 		terminal.printf("\n3 - PLACE A BID \n");
-		terminal.printf("\n4 - LEAVE\n");
+		terminal.printf("\n4 - LIST ALL BIDS \n");
+		terminal.printf("\n5 - LEAVE\n");
 	}
 
 

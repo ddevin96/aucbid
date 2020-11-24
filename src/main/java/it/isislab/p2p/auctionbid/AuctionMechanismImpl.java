@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.TimeZone;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerBuilderDHT;
@@ -135,7 +133,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 
 					//compare actual time with end time of the bid
 					if (now.after(auction.get_end_time())) {
-						return "THIS AUCTION IS EXPIRED\n" + auction.toString();
+						return "THIS AUCTION IS EXPIRED\n" + auction.get_auction_name();
 					} else {
 						//if not expired check if my bid is bigger then the max until now
 						if (_bid_amount > auction.get_max_bid()) {
@@ -158,6 +156,27 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 			e.printStackTrace();
 		}
 		return "error";
+	}
+
+	public ArrayList<String> listAuctions(){
+		try {
+			FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
+			futureGet.awaitUninterruptibly();
+
+			if (futureGet.isSuccess()) {
+				//if is empty peer has to create the list first 
+				if(futureGet.isEmpty()) {
+					dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+					return null;
+				}
+				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+
+				return auctions_names;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public boolean leaveNetwork() {
