@@ -32,7 +32,7 @@ public class AuctionMechanismImplTest {
         }
         
         peer0 = new AuctionMechanismImpl(0, "127.0.0.1", new MessageListenerImpl(0));
-        peer1 = new AuctionMechanismImpl(1, "127.0.0.1", new MessageListenerImpl(1));
+        peer1 = new AuctionMechanismImpl(1, "172.17.0.2", new MessageListenerImpl(1));
     }
 
     @Test
