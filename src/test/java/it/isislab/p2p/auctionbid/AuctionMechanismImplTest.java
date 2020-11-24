@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -68,6 +69,19 @@ public class AuctionMechanismImplTest {
         peer0.createAuction("cane", new Date(), 100.0, "bel cane");
         assertFalse(peer1.createAuction("cane", new Date(), 150.0, "altro cane"));
     }
+
+    @Test
+    void testListAllBids(TestInfo testInfo) {
+        peer0.createAuction("auto", new Date(), 100.0, "bel cane");
+        peer1.createAuction("casa", new Date(), 100.0, "bella casa");
+        peer0.createAuction("libro", new Date(), 100.0, "bel libro");
+        ArrayList<String> arr = new ArrayList<String>();
+        arr.add("auto");
+        arr.add("casa");
+        arr.add("libro");
+        assertEquals(arr, peer0.listAuctions());
+    }
+
 
     @AfterAll
     static void leaveAll(){
