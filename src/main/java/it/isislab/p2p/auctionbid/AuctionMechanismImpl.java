@@ -183,6 +183,39 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		}
 		return null;
 	}
+
+	public String printAuction(String _auction_name){
+		try {
+			FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
+			futureGet.awaitUninterruptibly();
+
+			if (futureGet.isSuccess()) {
+				//if is empty peer has to create the list first 
+				if(futureGet.isEmpty()) {
+					dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+					return null;
+				}
+				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+
+				// control if the list has the auction name in it
+				if (auctions_names.contains(_auction_name)) {
+					FutureGet futureGet2 = dht.get(Number160.createHash(_auction_name)).start();
+					futureGet2.awaitUninterruptibly();
+
+					if (futureGet2.isSuccess()) {
+						Auction auction = (Auction) futureGet2.dataMap().values().iterator().next().object();
+						
+						return auction.toString();
+					} else {
+						return null;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public boolean leaveNetwork() {
 		

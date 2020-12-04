@@ -70,7 +70,7 @@ public class ExampleAuc {
 				printMenu(terminal);
 				
 				int option = textIO.newIntInputReader()
-						.withMaxVal(5)
+						.withMaxVal(6)
 						.withMinVal(1)
 						.read("\nOption");
 				switch (option) {
@@ -133,6 +133,14 @@ public class ExampleAuc {
 					}
 					break;
 				case 5:
+					terminal.printf("\nENTER BID NAME TO PRINT INFORMATIONS: \n");
+					String auc_name_inf = textIO.newStringInputReader()
+							.withDefaultValue("abc")
+							.read("Bid name:");
+					String bid_inf = peer.printAuction(auc_name_inf);
+					terminal.printf("\n%s\n", bid_inf);
+					break;
+				case 6:
 					terminal.printf("\nARE YOU SURE TO LEAVE THE NETWORK?\n");
 					boolean exit = textIO.newBooleanInputReader().withDefaultValue(false).read("exit?");
 					if(exit) {
@@ -161,7 +169,8 @@ public class ExampleAuc {
 		terminal.printf("\n2 - CHECK BID \n");
 		terminal.printf("\n3 - PLACE A BID \n");
 		terminal.printf("\n4 - LIST ALL BIDS \n");
-		terminal.printf("\n5 - LEAVE\n");
+		terminal.printf("\n5 - PRINT INFORMATIONS OF AN AUC \n");
+		terminal.printf("\n6 - LEAVE\n");
 	}
 
 
