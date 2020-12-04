@@ -56,9 +56,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 			//check if exist another auction with the same name
 			if (checkAuction(_auction_name) == null) {
 				
-				Date now = new Date();
-
-				if (!now.after(_end_time) || _reserved_price < 0) {
+				if (_reserved_price < 0) {
 					//date already expired or negative price
 					return false;
 				} 
@@ -143,13 +141,13 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 						return "THIS AUCTION IS EXPIRED\n" + auction.get_auction_name();
 					} else {
 						//if not expired check if my bid is bigger then the max until now
-						if (_bid_amount > auction.get_max_bid()) {
+						if (_bid_amount > auction.get_max_bid() && _bid_amount > auction.get_reserved_price()) {
 							auction.set_max_bid(_bid_amount);
 	
 							dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
 							return "You placed the bet!";
 						} else {
-							return "Your bid it too low";
+							return "Your bid is too low";
 						}
 					}
 				} else {

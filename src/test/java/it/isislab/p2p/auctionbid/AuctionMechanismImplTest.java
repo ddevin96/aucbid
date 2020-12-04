@@ -55,7 +55,7 @@ public class AuctionMechanismImplTest {
     void testCheckRunningBid(TestInfo testInfo) {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
-            peer0.createAuction("canenuovo", newDate, 100.0, "bel cane nuovo");
+            assertTrue(peer0.createAuction("canenuovo", newDate, 100.0, "bel cane nuovo"));
             //Thread.sleep(7000);
             assertEquals("THIS AUCTION IS STILL RUNNING\n" + "canenuovo", peer1.checkAuction("canenuovo"));
         } catch (Exception e) {
@@ -96,9 +96,36 @@ public class AuctionMechanismImplTest {
     }
 
     @Test
-    void testCreateBidPastDate(TestInfo testInfo) {
+    void testPlaceBidOnExpiredAuc(TestInfo testInfo) {
         try {
-            assertFalse(peer0.createAuction("canePassato", new Date(2000, 10, 10), 100.0, "bel cane"));
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
+            assertTrue(peer0.createAuction("miaoExpired", newDate, 100.0, "bel gatto"));
+            //Thread.sleep(5000);
+            assertEquals("THIS AUCTION IS EXPIRED\n" + "miaoExpired", peer1.placeAbid("miaoExpired", 120));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Test
+    void testPlaceCorrectBid(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("caneNotExpired", newDate, 100.0, "bel cane");
+            //Thread.sleep(5000);
+            assertEquals("You placed the bet!", peer1.placeAbid("caneNotExpired", 120));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testPlaceWrongBid(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("caneNotExpired2", newDate, 100.0, "bel cane");
+            //Thread.sleep(5000);
+            assertEquals("Your bid is too low", peer1.placeAbid("caneNotExpired2", 20));
         } catch (Exception e) {
             e.printStackTrace();
         }
