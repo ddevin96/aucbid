@@ -16,7 +16,7 @@ import org.junit.jupiter.api.TestInfo;
 
 public class AuctionMechanismImplTest {
     
-    static AuctionMechanismImpl peer0, peer1;
+    static AuctionMechanismImpl peer0, peer1, peer2;
 
     public AuctionMechanismImplTest() {
 
@@ -42,6 +42,8 @@ public class AuctionMechanismImplTest {
         
         peer0 = new AuctionMechanismImpl(0, "127.0.0.1", new MessageListenerImpl(0));
         peer1 = new AuctionMechanismImpl(1, "127.0.0.1", new MessageListenerImpl(1));
+        peer2 = new AuctionMechanismImpl(1, "127.0.0.1", new MessageListenerImpl(1));
+
     }
 
     @Test
@@ -114,10 +116,9 @@ public class AuctionMechanismImplTest {
         assertEquals(arr, peer0.listAuctions());
     }
     
-    @AfterAll
-    static void leaveAll(){
-        peer0.leaveNetwork();
-        peer1.leaveNetwork();
+    @Test
+    void testLeaveNetwork(){
+        assertTrue(peer2.leaveNetwork());
     }
 
 }
