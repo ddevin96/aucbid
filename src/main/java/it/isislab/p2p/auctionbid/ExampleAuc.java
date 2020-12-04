@@ -75,10 +75,10 @@ public class ExampleAuc {
 						.read("\nOption");
 				switch (option) {
 				case 1:
-					terminal.printf("\nENTER BID NAME\n");
+					terminal.printf("\nENTER AUCTION NAME\n");
 					String name = textIO.newStringInputReader()
 					        .withDefaultValue("abcd")
-							.read("Bid name: ");
+							.read("Auction name: ");
 					String date = textIO.newStringInputReader()
 							.withDefaultValue("yyyy-mm-dd hh:mm:ss")
 							.read("Enter expiration date: ");
@@ -91,15 +91,15 @@ public class ExampleAuc {
 							.read("Description of product: ");
 
 					if(peer.createAuction(name, newDate, price, description))
-						terminal.printf("\nBID %s SUCCESSFULLY CREATED\n",name);
+						terminal.printf("\nAUCTION %s SUCCESSFULLY CREATED\n",name);
 					else
-						terminal.printf("\nERROR IN BID CREATION\n");
+						terminal.printf("\nERROR IN AUCTION CREATION\n");
 					break;
 				case 2:
-					terminal.printf("\nENTER BID NAME TO FIND\n");
+					terminal.printf("\nENTER AUCTION NAME TO FIND\n");
 					String sname = textIO.newStringInputReader()
 					        .withDefaultValue("abc")
-							.read("Bid name:");
+							.read("Auction name:");
 					String checked = peer.checkAuction(sname);
 					if(checked!=null) {
 						terminal.printf("\n SUCCESSFULLY FIND %s\n",sname);
@@ -108,10 +108,10 @@ public class ExampleAuc {
 						terminal.printf("\nNO AUCTION FIND WITH THAT NAME\n");
 					break;
 				case 3:
-					terminal.printf("\nENTER BID NAME TO FIND TO PLACE A BID: \n");
+					terminal.printf("\nENTER AUCTION NAME TO FIND TO PLACE A BID: \n");
 					String auc_name = textIO.newStringInputReader()
 							.withDefaultValue("abc")
-							.read("Bid name:");
+							.read("Auction name:");
 					Double bid_price = textIO.newDoubleInputReader()
 							.withDefaultValue(10.0)
 							.read("Enter your bid: ");
@@ -126,19 +126,19 @@ public class ExampleAuc {
 								terminal.println(elem + "\n");
 							}
 						} else {
-							terminal.println("There are no bids\n");
+							terminal.println("There are no auctions\n");
 						}
 					} else {
-						terminal.println("There are no bid\n");
+						terminal.println("There are no auctions\n");
 					}
 					break;
 				case 5:
-					terminal.printf("\nENTER BID NAME TO PRINT INFORMATIONS: \n");
+					terminal.printf("\nENTER AUCTION NAME TO PRINT INFORMATIONS: \n");
 					String auc_name_inf = textIO.newStringInputReader()
 							.withDefaultValue("abc")
-							.read("Bid name:");
-					String bid_inf = peer.printAuction(auc_name_inf);
-					terminal.printf("\n%s\n", bid_inf);
+							.read("Auction name:");
+					String auc_inf = peer.printAuction(auc_name_inf);
+					terminal.printf("\n%s\n", auc_inf);
 					break;
 				case 6:
 					terminal.printf("\nARE YOU SURE TO LEAVE THE NETWORK?\n");
@@ -165,11 +165,11 @@ public class ExampleAuc {
 
 	}
 	public static void printMenu(TextTerminal terminal) {
-		terminal.printf("\n1 - CREATE BID\n");
-		terminal.printf("\n2 - CHECK BID \n");
+		terminal.printf("\n1 - CREATE AUCTION\n");
+		terminal.printf("\n2 - CHECK AUCTION \n");
 		terminal.printf("\n3 - PLACE A BID \n");
-		terminal.printf("\n4 - LIST ALL BIDS \n");
-		terminal.printf("\n5 - PRINT INFORMATIONS OF AN AUC \n");
+		terminal.printf("\n4 - LIST ALL AUCTIONS \n");
+		terminal.printf("\n5 - PRINT ALL INFORMATIONS OF AN AUCTION \n");
 		terminal.printf("\n6 - LEAVE\n");
 	}
 
