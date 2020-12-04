@@ -85,6 +85,24 @@ public class AuctionMechanismImplTest {
     }
 
     @Test
+    void testCreateBidNegativePrice(TestInfo testInfo) {
+        try {
+            assertFalse(peer0.createAuction("caneNegativo", new Date(), -100.0, "bel cane"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testCreateBidPastDate(TestInfo testInfo) {
+        try {
+            assertFalse(peer0.createAuction("canePassato", new Date(2000, 10, 10), 100.0, "bel cane"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     void testListAllBids(TestInfo testInfo) {
         peer0.createAuction("auto", new Date(), 100.0, "bel cane");
         peer1.createAuction("casa", new Date(), 100.0, "bella casa");
@@ -96,11 +114,10 @@ public class AuctionMechanismImplTest {
         assertEquals(arr, peer0.listAuctions());
     }
     
-    // should be called after all the tests
-    // @Test
-    // void leaveAll(){
-    //     peer0.leaveNetwork();
-    //     peer1.leaveNetwork();
-    // }
+    @AfterAll
+    void leaveAll(){
+        peer0.leaveNetwork();
+        peer1.leaveNetwork();
+    }
 
 }

@@ -55,6 +55,13 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 
 			//check if exist another auction with the same name
 			if (checkAuction(_auction_name) == null) {
+				
+				Date now = new Date();
+
+				if (!now.after(_end_time) || _reserved_price < 0) {
+					//date already expired or negative price
+					return false;
+				} 
 				Auction auction = new Auction(_auction_name, _end_time, _reserved_price, _description, owner);
 				FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
 				futureGet.awaitUninterruptibly();
