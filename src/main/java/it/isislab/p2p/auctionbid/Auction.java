@@ -99,18 +99,15 @@ public class Auction implements Serializable{
     }
 
     public boolean addBidder(int bidder) {
+        int index;
         if (slot.isEmpty()) {
             slot.add(bidder);
             return true;
         } else if (slot.contains(bidder)) {
-            //if in the slot, i remove it and place on first slot
-            for (int elem: slot) {
-                if (elem == bidder) {
-                    int ind = slot.indexOf(elem);
-                    slot.remove(ind);
-                }
-            }
             slot.add(0,bidder);
+            index = slot.lastIndexOf(bidder);
+            //if in the slot, i remove it and place on first slot
+            slot.remove(index);
         } else {
             // if not inside the list, i place it on first slot
             slot.add(0,bidder);
