@@ -36,19 +36,35 @@ The package ```src/test/java/it/isislab/p2p/auctionbid/``` provides one Java cla
 Here are all the test passing:
 
 - _testCreateBid_ 
-- _testCheckRunningBid_ 
-- _testCheckExpiredBid_ 	
-- _testCheckExpiredBidByOwner_ 
-- _testCreateSameBid_
-- _testCreateBidNegativePrice_ 	
-- _testPlaceBidOnExpiredAuc_ 
-- _testPlaceCorrectBid_ 
-- _testPlaceWrongBid_ 	
-- _testBidOnMyAuc_ 
+  - Succesfully creation of a bid
+- _testCheckRunningAuction_ 
+  - Check if an auction is correctly running
+- _testCheckExpiredAuction_ 
+  - Check if an auction is correctly expired	
+- _testCheckExpiredAuctionByOwner_ 
+  - Check if notify that the auction expired is checked by the owner
+- _testCreateSameAuction_
+  - Try to create auctions with same name by 2 peers
+- _testCreateAuctionNegativePrice_
+  - Try to create an auction with negative price
+- _testPlaceBidOnExpiredAuc_
+  - Try to bid on expired auction
+- _testPlaceCorrectBid_
+  - Try to correctly bid on an auc
+- _testPlaceWrongBid_
+  - Try to under bid
+- _testPlaceWrongBid_
+  - Try to bid a negative number
+- _testBidOnMyAuc_
+  - Try to bid on your own bid
 - _testWinningAuc_
-- _testListAllBids_ 
-- _testPrintAuction_	
+  - Check if you're winning the auction
+- _testListAllBids_
+  - Check if all bids listed are correct
+- _testPrintAuction_
+  - Check if the print of informations of an auction is correct
 - _testLeaveNetwork_ 
+  - Check if leaving the network is succesfull
 
 ## Docker start
 

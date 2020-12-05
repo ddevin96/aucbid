@@ -127,6 +127,10 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 
 	public String placeAbid(String _auction_name, double _bid_amount){
 
+		if (_bid_amount <= 0) {
+			return "Insert a valid number";
+		}
+
 		//check if the auction exist
 		try {
 			if (checkAuction(_auction_name) != null) {
