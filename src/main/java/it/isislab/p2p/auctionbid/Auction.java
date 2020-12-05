@@ -22,6 +22,7 @@ public class Auction implements Serializable{
     String _description;
     int _owner;
     Double max_bid;
+    int max_bid_id;
 
     public Auction() {
     }
@@ -33,6 +34,7 @@ public class Auction implements Serializable{
         _description = description;
         _owner = owner;
         this.max_bid = 0.0;
+        this.max_bid_id = -1;
     }
 
     public String get_auction_name() {
@@ -81,6 +83,14 @@ public class Auction implements Serializable{
 
     public void set_max_bid(Double max_bid) {
         this.max_bid = max_bid;
+    }
+
+    public int get_max_bid_id() {
+        return max_bid_id;
+    }
+
+    public void set_max_bid_id(int max_bid_id) {
+        this.max_bid_id = max_bid_id;
     }
     
     @Override

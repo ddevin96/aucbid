@@ -132,6 +132,30 @@ public class AuctionMechanismImplTest {
     }
 
     @Test
+    void testBidOnMyAuc(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("caneMio", newDate, 100.0, "bello il mio cane");
+            //Thread.sleep(5000);
+            assertEquals("You're the owner!", peer0.placeAbid("caneMio", 200));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testWinningAuc(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("caneWin", newDate, 100.0, "bello il mio cane");
+            peer1.placeAbid("caneWin", 200);
+            assertEquals("You're winning this!", peer1.placeAbid("caneWin", 300));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     void testListAllBids(TestInfo testInfo) {
         peer0.createAuction("auto", new Date(), 100.0, "bel cane");
         peer1.createAuction("casa", new Date(), 100.0, "bella casa");

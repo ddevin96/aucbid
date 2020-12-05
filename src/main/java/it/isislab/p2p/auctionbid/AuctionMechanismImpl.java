@@ -133,6 +133,14 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 
 				if (futureGet.isSuccess()) {
 					Auction auction = (Auction) futureGet.dataMap().values().iterator().next().object();
+
+					//can't bid on your own auc
+					if (owner == auction.get_owner()) {
+						return "You're the owner!";
+					} else if (owner == auction.get_max_bid_id()) {
+						// your bid is still the best
+						return "You're winning this!";
+					}
 					
 					Date now = new Date();
 
@@ -143,7 +151,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 						//if not expired check if my bid is bigger then the max until now
 						if (_bid_amount > auction.get_max_bid() && _bid_amount > auction.get_reserved_price()) {
 							auction.set_max_bid(_bid_amount);
-	
+							auction.set_max_bid_id(owner);
 							dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
 							return "You placed the bet!";
 						} else {
