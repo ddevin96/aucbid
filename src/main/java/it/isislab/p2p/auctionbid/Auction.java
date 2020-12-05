@@ -1,5 +1,6 @@
 package it.isislab.p2p.auctionbid;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -23,6 +24,8 @@ public class Auction implements Serializable{
     int _owner;
     Double max_bid;
     int max_bid_id;
+    ArrayList<Integer> slot;
+    ArrayList<Double> bids;
 
     public Auction() {
     }
@@ -35,6 +38,8 @@ public class Auction implements Serializable{
         _owner = owner;
         this.max_bid = 0.0;
         this.max_bid_id = -1;
+        this.slot = new ArrayList<Integer>();
+        this.bids = new ArrayList<Double>();
     }
 
     public String get_auction_name() {
@@ -91,6 +96,48 @@ public class Auction implements Serializable{
 
     public void set_max_bid_id(int max_bid_id) {
         this.max_bid_id = max_bid_id;
+    }
+
+    public boolean addBidder(int bidder) {
+        if (slot.isEmpty()) {
+            slot.add(bidder);
+            return true;
+        } else if (slot.contains(bidder)) {
+            //if in the slot, i remove it and place on first slot
+            for (int elem: slot) {
+                if (elem == bidder) {
+                    int ind = slot.indexOf(elem);
+                    slot.remove(ind);
+                }
+            }
+            slot.add(0,bidder);
+        } else {
+            // if not inside the list, i place it on first slot
+            slot.add(0,bidder);
+        }
+
+        if (slot.get(0) != bidder)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean addBid(double bid) {
+        if (bids.isEmpty()) {
+            bids.add(bid);
+        } else {
+            bids.add(0,bid);
+        }
+        
+        return true;
+    }
+
+    public String getSlot() {
+        return slot.toString();
+    }
+
+    public String getBids() {
+        return bids.toString();
     }
     
     @Override

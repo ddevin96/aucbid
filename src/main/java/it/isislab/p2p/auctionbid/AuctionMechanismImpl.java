@@ -152,6 +152,8 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 						if (_bid_amount > auction.get_max_bid() && _bid_amount > auction.get_reserved_price()) {
 							auction.set_max_bid(_bid_amount);
 							auction.set_max_bid_id(owner);
+							auction.addBidder(owner);
+							auction.addBid(_bid_amount);
 							dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
 							return "You placed the bet!";
 						} else {
@@ -213,7 +215,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 					if (futureGet2.isSuccess()) {
 						Auction auction = (Auction) futureGet2.dataMap().values().iterator().next().object();
 						
-						return auction.toString();
+						return auction.toString() + auction.getBids() + auction.getSlot();
 					} else {
 						return null;
 					}
