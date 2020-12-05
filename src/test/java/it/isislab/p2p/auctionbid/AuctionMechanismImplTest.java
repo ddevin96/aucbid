@@ -69,7 +69,7 @@ public class AuctionMechanismImplTest {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
             assertTrue(peer0.createAuction("miao", newDate, 100.0, "bel gatto"));
             //Thread.sleep(5000);
-            assertEquals("THIS AUCTION IS EXPIRED\n" + "miao", peer1.checkAuction("miao"));
+            assertEquals("THIS AUCTION IS EXPIRED\n" + "miao" + "\n" + "no one partecipated", peer1.checkAuction("miao"));
         } catch (Exception e) {
             e.printStackTrace();
         }

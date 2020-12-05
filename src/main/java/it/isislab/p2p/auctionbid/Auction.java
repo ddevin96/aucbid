@@ -106,7 +106,7 @@ public class Auction implements Serializable{
         } else if (slot.contains(bidder)) {
             slot.add(0,bidder);
             index = slot.lastIndexOf(bidder);
-            //if in the slot, i remove it and place on first slot
+            //if i was a bidder, i remove my previous position
             slot.remove(index);
         } else {
             // if not inside the list, i place it on first slot
@@ -121,7 +121,8 @@ public class Auction implements Serializable{
 
     public boolean addBid(double bid) {
         if (bids.isEmpty()) {
-            bids.add(bid);
+            if (!bids.add(bid))
+                return false;
         } else {
             bids.add(0,bid);
         }
@@ -135,6 +136,28 @@ public class Auction implements Serializable{
 
     public String getBids() {
         return bids.toString();
+    }
+
+    public String getResult(int peer) {
+        if (slot.isEmpty() || bids.isEmpty())
+            return "no one partecipated";
+            
+        int yourSlot = slot.indexOf(peer);
+        Double yourWin;
+        String result = "";
+
+        if (yourSlot + 1 == bids.size())
+            yourWin = this._reserved_price;
+        else
+            yourWin = bids.get(yourSlot + 1);
+
+        if (yourSlot == 0) {
+            result += "You win. You pay: " + yourWin; 
+        } else {
+            result += "You lose but you pay: " + yourWin;
+        }
+        
+        return result;
     }
     
     @Override
