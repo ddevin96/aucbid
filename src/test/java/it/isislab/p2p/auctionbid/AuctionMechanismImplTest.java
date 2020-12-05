@@ -179,18 +179,18 @@ public class AuctionMechanismImplTest {
         assertEquals(arr, peer0.listAuctions());
     }
     
-    // @Test
-    // void testPrintAuction(TestInfo testInfo) {
-    //     try {
-    //         Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
-    //         peer0.createAuction("caneStampa", newDate, 100.0, "bel cane");
-    //         assertEquals("Auction name: " + "caneStampa" + "\nEnd time: " + newDate + "\nReserved price: " 
-    //              + "100.0" + "\nDescription: " + "bel cane" + "\nOwner: " + "0" 
-    //              + "\nMax_bid: " + "0.0" + "\n", peer1.printAuction("caneStampa"));
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+    @Test
+    void testPrintAuction(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("caneStampa", newDate, 100.0, "bel cane");
+            assertEquals("Auction name: " + "caneStampa" + "\nEnd time: " + newDate + "\nReserved price: " 
+                 + "100.0" + "\nDescription: " + "bel cane" + "\nOwner: " + "0" 
+                 + "\nMax_bid: " + "0.0" + "\n", peer1.printAuction("caneStampa"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     void testLeaveNetwork(){
