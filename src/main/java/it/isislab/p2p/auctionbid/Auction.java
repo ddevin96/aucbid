@@ -139,9 +139,12 @@ public class Auction implements Serializable{
     }
 
     public String getResult(int peer) {
+        if (peer == this._owner)
+            return "You were the owner of the bid";
+
         if (slot.isEmpty() || bids.isEmpty())
             return "no one partecipated";
-            
+
         int yourSlot = slot.indexOf(peer);
         Double yourWin;
         String result = "";

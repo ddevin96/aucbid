@@ -76,6 +76,18 @@ public class AuctionMechanismImplTest {
     }
 
     @Test
+    void testCheckExpiredBidByOwner(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
+            assertTrue(peer0.createAuction("miaoExp", newDate, 100.0, "bel gatto"));
+            //Thread.sleep(5000);
+            assertEquals("THIS AUCTION IS EXPIRED\n" + "miaoExp" + "\n" + "You were the owner of the bid", peer0.checkAuction("miaoExp"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     void testCreateSameBid(TestInfo testInfo) {
         try {
             peer0.createAuction("cane", new Date(), 100.0, "bel cane");
