@@ -69,7 +69,7 @@ Here are all the test passing:
 
 The build is tested also with github actions:
 
-'''yml
+```yml
 name: Java CI with Maven
 
 on:
@@ -91,7 +91,7 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-'''
+```
 
 ## Docker start
 
