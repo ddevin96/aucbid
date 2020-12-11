@@ -7,7 +7,7 @@ Each peer can sell and buy goods using second-price Auctions (eBay). Second-pric
 
 Usign Maven you can add the dependencies to TomP2P in the pom.xml file. 
 
-```
+```xml
 <repositories>
     <repository>
         <id>tomp2p.net</id>
@@ -67,7 +67,7 @@ Here are all the test passing:
 - _testLeaveNetwork_ 
   - Check if leaving the network is succesfull
 
-The build is tested also with github actions:
+The build is tested through CI with github actions:
 
 ```yml
 name: Java CI with Maven
