@@ -60,14 +60,17 @@ Here are all the test passing:
   - Try to bid on your own bid
 - _testWinningAuc_
   - Check if you're winning the auction
+- _testWinnerAuc
+  - Check if you've won the auction
 - _testListAllAuctions_
   - Check if all auctions listed are correct
 - _testListAllAuctionsVoid
   - Try to display the list for first time
-- _testListAllAuctionsEmpty
   - Try to display the empty list
 - _testPrintAuction_
   - Check if the print of informations of an auction is correct
+- _testPrintAuctionNotInList
+  - Try to display an auction not in list
 - _testLeaveNetwork_ 
   - Check if leaving the network is succesfull
 

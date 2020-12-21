@@ -138,7 +138,11 @@ public class ExampleAuc {
 							.withDefaultValue("abc")
 							.read("Auction name:");
 					String auc_inf = peer.printAuction(auc_name_inf);
-					terminal.printf("\n%s\n", auc_inf);
+					if (auc_inf != null) {
+						terminal.printf("\n%s\n", auc_inf);
+					} else {
+						terminal.printf("This auction doesn't exist\n", auc_inf);
+					}
 					break;
 				case 6:
 					terminal.printf("\nARE YOU SURE TO LEAVE THE NETWORK?\n");

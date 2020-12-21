@@ -175,6 +175,29 @@ public class AuctionMechanismImplTest {
     }
 
     @Test
+    void testWinnerAuc(TestInfo testInfo) {
+        try {
+            Date newDate = new Date();
+            int sec = newDate.getSeconds();
+            if (sec < 50)
+                newDate.setSeconds(sec + 10);
+            else {
+                Thread.sleep(10000);
+                newDate = new Date();
+                sec = newDate.getSeconds();
+                newDate.setSeconds(sec + 10);
+            }
+            peer0.createAuction("winning", newDate, 100.0, "wiiiiin");
+            peer1.placeAbid("winning", 200);
+            Thread.sleep(10000);
+            assertEquals("THIS AUCTION IS EXPIRED\n" + "winning"
+            + "\n" + "You win. You pay: 100.0", peer1.checkAuction("winning"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     void testListAllAuctions(TestInfo testInfo) {
         peer0.createAuction("auto", new Date(), 100.0, "bel cane");
         peer1.createAuction("casa", new Date(), 100.0, "bella casa");
@@ -202,6 +225,15 @@ public class AuctionMechanismImplTest {
             assertEquals("Auction name: " + "caneStampa" + "\nEnd time: " + newDate + "\nReserved price: " 
                  + "100.0" + "\nDescription: " + "bel cane" + "\nOwner: " + "0" 
                  + "\nMax_bid: " + "0.0" + "\n", peer1.printAuction("caneStampa"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testPrintAuctionNotInList(TestInfo testInfo) {
+        try {
+            assertEquals(null, peer1.printAuction("auctionInvented"));
         } catch (Exception e) {
             e.printStackTrace();
         }
