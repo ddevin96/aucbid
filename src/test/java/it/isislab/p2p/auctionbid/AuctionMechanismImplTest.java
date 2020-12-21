@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import org.junit.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -183,17 +184,13 @@ public class AuctionMechanismImplTest {
         assertEquals(arr, peer0.listAuctions());
     }
 
-    // @Test
-    // void testListAllAuctionsVoid(TestInfo testInfo) {
-    //     assertEquals(null, peer0.listAuctions());
-    // }
-
-    // @Test
-    // void testListAllAuctionsEmpty(TestInfo testInfo) {
-    //     ArrayList<String> arr = new ArrayList<String>();
-    //     peer0.listAuctions();
-    //     assertEquals(arr, peer0.listAuctions());
-    // }
+    @Test
+    @Order(1)
+    void testListAllAuctionsVoid(TestInfo testInfo) {
+        assertEquals(null, peer0.listAuctions());
+        ArrayList<String> arr = new ArrayList<String>();
+        assertEquals(arr, peer0.listAuctions());
+    }
 
     @Test
     void testPrintAuction(TestInfo testInfo) {
