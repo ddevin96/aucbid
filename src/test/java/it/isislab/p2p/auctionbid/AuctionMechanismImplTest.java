@@ -42,8 +42,20 @@ public class AuctionMechanismImplTest {
         
         peer0 = new AuctionMechanismImpl(0, "127.0.0.1", new MessageListenerImpl(0));
         peer1 = new AuctionMechanismImpl(1, "127.0.0.1", new MessageListenerImpl(1));
-        peer2 = new AuctionMechanismImpl(1, "127.0.0.1", new MessageListenerImpl(1));
+        peer2 = new AuctionMechanismImpl(2, "127.0.0.1", new MessageListenerImpl(2));
 
+    }
+
+    @Test
+    void testListAllAuctionsVoid(TestInfo testInfo) {
+        assertEquals(null, peer0.listAuctions());
+    }
+
+    @Test
+    void testListAllAuctionsEmpty(TestInfo testInfo) {
+        ArrayList<String> arr = new ArrayList<String>();
+        peer0.listAuctions();
+        assertEquals(arr, peer0.listAuctions());
     }
 
     @Test
@@ -181,19 +193,6 @@ public class AuctionMechanismImplTest {
         arr.add("libro");
         assertEquals(arr, peer0.listAuctions());
     }
-    
-    @Test
-    void testListAllAuctionsVoid(TestInfo testInfo) {
-        assertEquals(null, peer0.listAuctions());
-    }
-
-    @Test
-    void testListAllAuctionsEmpty(TestInfo testInfo) {
-        ArrayList<String> arr = new ArrayList<String>();
-        peer0.listAuctions();
-        assertEquals(arr, peer0.listAuctions());
-    }
-
 
     @Test
     void testPrintAuction(TestInfo testInfo) {
