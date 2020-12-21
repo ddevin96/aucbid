@@ -13,6 +13,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.TestMethodOrder;
 
 public class AuctionMechanismImplTest {
     
@@ -44,18 +45,6 @@ public class AuctionMechanismImplTest {
         peer1 = new AuctionMechanismImpl(1, "127.0.0.1", new MessageListenerImpl(1));
         peer2 = new AuctionMechanismImpl(2, "127.0.0.1", new MessageListenerImpl(2));
 
-    }
-
-    @Test
-    void testListAllAuctionsVoid(TestInfo testInfo) {
-        assertEquals(null, peer0.listAuctions());
-    }
-
-    @Test
-    void testListAllAuctionsEmpty(TestInfo testInfo) {
-        ArrayList<String> arr = new ArrayList<String>();
-        peer0.listAuctions();
-        assertEquals(arr, peer0.listAuctions());
     }
 
     @Test
@@ -193,6 +182,18 @@ public class AuctionMechanismImplTest {
         arr.add("libro");
         assertEquals(arr, peer0.listAuctions());
     }
+
+    // @Test
+    // void testListAllAuctionsVoid(TestInfo testInfo) {
+    //     assertEquals(null, peer0.listAuctions());
+    // }
+
+    // @Test
+    // void testListAllAuctionsEmpty(TestInfo testInfo) {
+    //     ArrayList<String> arr = new ArrayList<String>();
+    //     peer0.listAuctions();
+    //     assertEquals(arr, peer0.listAuctions());
+    // }
 
     @Test
     void testPrintAuction(TestInfo testInfo) {
