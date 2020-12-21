@@ -236,8 +236,6 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 	}
 	
 	public boolean leaveNetwork() {
-		
-		//for(String topic: new ArrayList<String>(s_topics)) unsubscribeFromTopic(topic);
 		dht.peer().announceShutdown().start().awaitUninterruptibly();
 		return true;
 	}

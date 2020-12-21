@@ -56,7 +56,6 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
             assertTrue(peer0.createAuction("canenuovo", newDate, 100.0, "bel cane nuovo"));
-            //Thread.sleep(7000);
             assertEquals("THIS AUCTION IS STILL RUNNING\n" + "canenuovo", peer1.checkAuction("canenuovo"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,7 +67,6 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
             assertTrue(peer0.createAuction("miao", newDate, 100.0, "bel gatto"));
-            //Thread.sleep(5000);
             assertEquals("THIS AUCTION IS EXPIRED\n" + "miao" + "\n" + "no one partecipated", peer1.checkAuction("miao"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +78,6 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
             assertTrue(peer0.createAuction("miaoExp", newDate, 100.0, "bel gatto"));
-            //Thread.sleep(5000);
             assertEquals("THIS AUCTION IS EXPIRED\n" + "miaoExp" + "\n" + "You were the owner of the bid", peer0.checkAuction("miaoExp"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +88,6 @@ public class AuctionMechanismImplTest {
     void testCreateSameAuction(TestInfo testInfo) {
         try {
             peer0.createAuction("cane", new Date(), 100.0, "bel cane");
-            //Thread.sleep(7000);
             assertFalse(peer1.createAuction("cane", new Date(), 150.0, "altro cane"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +108,6 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
             assertTrue(peer0.createAuction("miaoExpired", newDate, 100.0, "bel gatto"));
-            //Thread.sleep(5000);
             assertEquals("THIS AUCTION IS EXPIRED\n" + "miaoExpired", peer1.placeAbid("miaoExpired", 120));
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,7 +119,6 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
             peer0.createAuction("caneNotExpired", newDate, 100.0, "bel cane");
-            //Thread.sleep(5000);
             assertEquals("You placed the bet!", peer1.placeAbid("caneNotExpired", 120));
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,7 +130,6 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
             peer0.createAuction("caneNotExpired2", newDate, 100.0, "bel cane");
-            //Thread.sleep(5000);
             assertEquals("Your bid is too low", peer1.placeAbid("caneNotExpired2", 20));
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,7 +141,6 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
             peer0.createAuction("caneNotExpired2", newDate, 100.0, "bel cane");
-            //Thread.sleep(5000);
             assertEquals("Insert a valid number", peer1.placeAbid("caneNotExpired2", -20));
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,7 +152,6 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
             peer0.createAuction("caneMio", newDate, 100.0, "bello il mio cane");
-            //Thread.sleep(5000);
             assertEquals("You're the owner!", peer0.placeAbid("caneMio", 200));
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,7 +171,7 @@ public class AuctionMechanismImplTest {
     }
 
     @Test
-    void testListAllBids(TestInfo testInfo) {
+    void testListAllAuctions(TestInfo testInfo) {
         peer0.createAuction("auto", new Date(), 100.0, "bel cane");
         peer1.createAuction("casa", new Date(), 100.0, "bella casa");
         peer0.createAuction("libro", new Date(), 100.0, "bel libro");
@@ -191,6 +182,19 @@ public class AuctionMechanismImplTest {
         assertEquals(arr, peer0.listAuctions());
     }
     
+    @Test
+    void testListAllAuctionsVoid(TestInfo testInfo) {
+        assertEquals(null, peer0.listAuctions());
+    }
+
+    @Test
+    void testListAllAuctionsEmpty(TestInfo testInfo) {
+        ArrayList<String> arr = new ArrayList<String>();
+        peer0.listAuctions();
+        assertEquals(arr, peer0.listAuctions());
+    }
+
+
     @Test
     void testPrintAuction(TestInfo testInfo) {
         try {
