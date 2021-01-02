@@ -62,7 +62,19 @@ public class ExampleAuc {
 			terminal.printf("\nStaring peer id: %d on master node: %s\n",
 					id, master);
 			
+			ArrayList<String> followedAuctions = new ArrayList<String>();
+
 			while(true) {
+
+				if (!followedAuctions.isEmpty()) {
+					for (String auc : followedAuctions) {
+						String res = peer.checkAuction(auc);
+						if (res != null) {
+							if (!(("THIS AUCTION IS STILL RUNNING\n" + auc) == res))
+								terminal.printf(res);
+						}
+					}
+				}
 				
 				Date actualDate = new Date();
 				terminal.printf("\nActual time: %s\n", actualDate);
@@ -117,6 +129,8 @@ public class ExampleAuc {
 							.read("Enter your bid: ");
 					String bid = peer.placeAbid(auc_name, bid_price);
 					terminal.printf("\n%s\n", bid);
+					if (bid == "You placed the bet!")
+						followedAuctions.add(auc_name);
 					break;
 				case 4:
 					ArrayList<String> arr = peer.listAuctions();
