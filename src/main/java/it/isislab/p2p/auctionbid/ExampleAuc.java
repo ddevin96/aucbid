@@ -65,21 +65,6 @@ public class ExampleAuc {
 			ArrayList<String> followedAuctions = new ArrayList<String>();
 
 			while(true) {
-
-				if (!followedAuctions.isEmpty()) {
-					for (String auc : followedAuctions) {
-						String res = peer.checkAuction(auc);
-						String running = "THIS AUCTION IS STILL RUNNING\n" + auc;
-						if (res != null) {
-							if (!(running == res)) {
-								terminal.printf("---------\n");
-								terminal.printf(res);
-								terminal.printf("---------\n");
-								followedAuctions.remove(auc);
-							}
-						}
-					}
-				}
 				
 				Date actualDate = new Date();
 				terminal.printf("\nActual time: %s\n", actualDate);
@@ -165,6 +150,22 @@ public class ExampleAuc {
 					}
 					break;
 				case 6:
+					terminal.printf("\nCHECK YOUR BIDS: \n");
+					if (!followedAuctions.isEmpty()) {
+						for (String auc : followedAuctions) {
+							String res = peer.checkAuction(auc);
+							String running = "THIS AUCTION IS STILL RUNNING\n" + auc;
+							if (res != null) {
+								if (!(running == res)) {
+									terminal.printf("---------\n");
+									terminal.printf(res);
+									terminal.printf("---------\n");
+									followedAuctions.remove(auc);
+								}
+							}
+						}
+					}
+				case 7:
 					terminal.printf("\nARE YOU SURE TO LEAVE THE NETWORK?\n");
 					boolean exit = textIO.newBooleanInputReader().withDefaultValue(false).read("exit?");
 					if(exit) {
@@ -194,7 +195,8 @@ public class ExampleAuc {
 		terminal.printf("\n3 - PLACE A BID \n");
 		terminal.printf("\n4 - LIST ALL AUCTIONS \n");
 		terminal.printf("\n5 - PRINT ALL INFORMATIONS OF AN AUCTION \n");
-		terminal.printf("\n6 - LEAVE\n");
+		terminal.printf("\n6 - CHECK YOUR BIDS\n");
+		terminal.printf("\n7 - LEAVE\n");
 	}
 
 
