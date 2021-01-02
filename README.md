@@ -26,9 +26,26 @@ Usign Maven you can add the dependencies to TomP2P in the pom.xml file.
 The package ```src/main/java/it/isislab/p2p/auctionbid/``` provides three Java classes:
 
 - _Auction_ a class to model an Auction object.
+  - list of attributes of an auction
+    - _auction_name
+    - _end_time
+    - _reserved_price
+    - _description
+    - _owner
+    - max_bid
+    - max_bid_id
+    - slot
+      - array to memorize which slot have all the bidders
+    - bids
+      - array to memorize all the bids placed on the auction
 - _MessageListener_ a interface for listener of messages received by a peer.
 - _AuctionMechanism_ a interface that defines the AuctionBid communication paradigm.	
 - _AuctionMechanismImpl_ an implementation of the AuctionBid interface that exploits the TomP2P library.
+  - _createAuction_
+  - _checkAuction_
+  - _placeABid_
+  - _listAuctions_
+  - _printAuction_
 - _Example_ an example REPL application of a peers network able to manage Auctions and bid through communication.
 
 The package ```src/test/java/it/isislab/p2p/auctionbid/``` provides one Java class:
@@ -112,13 +129,13 @@ First of all you can build your docker container:
 
 After that you can start the master peer, in interactive mode (-i) and with two (-e) environment variables:
 
-```docker run -i --name MASTER-PEER -e MASTERIP="127.0.0.1" -e ID=0 p2p-pp-client```
+```docker run -i --name MASTER-PEER-AUC -e MASTERIP="127.0.0.1" -e ID=0 p2paucbid```
 
 ,the MASTERIP envirnoment variable is the master peer ip address and the ID environment variable is the unique id of your peer. Rember you have to run the master peer using the ID=0.
 
 **Note that**: after the first launch, you can launch the master node using the following command: 
 
-```docker start -i MASTER-PEER```.
+```docker start -i MASTER-PEER-AUC```.
 
 #### Start a generic peer
 
@@ -135,4 +152,4 @@ Now you can start your peers varying the unique peer id:
 
 **Note that**: after the first launch, you can launch this peer node using the following command:
 
-```docker start -i PEER-1```.
+```docker start -i CLIENT-PEER-1```.
