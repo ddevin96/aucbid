@@ -69,9 +69,14 @@ public class ExampleAuc {
 				if (!followedAuctions.isEmpty()) {
 					for (String auc : followedAuctions) {
 						String res = peer.checkAuction(auc);
+						String running = "THIS AUCTION IS STILL RUNNING\n" + auc;
 						if (res != null) {
-							if (!(("THIS AUCTION IS STILL RUNNING\n" + auc) == res))
+							if (!(running == res)) {
+								terminal.printf("---------\n");
 								terminal.printf(res);
+								terminal.printf("---------\n");
+								followedAuctions.remove(auc);
+							}
 						}
 					}
 				}
@@ -130,7 +135,8 @@ public class ExampleAuc {
 					String bid = peer.placeAbid(auc_name, bid_price);
 					terminal.printf("\n%s\n", bid);
 					if (bid == "You placed the bet!")
-						followedAuctions.add(auc_name);
+						if (!followedAuctions.contains(auc_name))
+							followedAuctions.add(auc_name);
 					break;
 				case 4:
 					ArrayList<String> arr = peer.listAuctions();
