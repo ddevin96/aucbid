@@ -164,6 +164,7 @@ public class ExampleAuc {
 							}
 						}
 					}
+					break;
 				case 7:
 					terminal.printf("\nARE YOU SURE TO LEAVE THE NETWORK?\n");
 					boolean exit = textIO.newBooleanInputReader().withDefaultValue(false).read("exit?");
