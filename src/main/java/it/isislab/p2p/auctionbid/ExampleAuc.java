@@ -159,8 +159,7 @@ public class ExampleAuc {
 								if (!(running == res)) {
 									terminal.printf("---------\n");
 									terminal.printf(res);
-									terminal.printf("---------\n");
-									followedAuctions.remove(auc);
+									terminal.printf("\n---------\n");
 								}
 							}
 						}
