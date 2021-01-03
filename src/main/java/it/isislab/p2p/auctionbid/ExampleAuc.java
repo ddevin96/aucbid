@@ -72,7 +72,7 @@ public class ExampleAuc {
 				printMenu(terminal);
 				
 				int option = textIO.newIntInputReader()
-						.withMaxVal(6)
+						.withMaxVal(8)
 						.withMinVal(1)
 						.read("\nOption");
 				switch (option) {
