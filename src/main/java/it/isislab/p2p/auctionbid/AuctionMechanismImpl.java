@@ -181,6 +181,10 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		return "error";
 	}
 
+	/**
+	 * Display all auctions in the system.
+	 * @return list of auctions
+	 */
 	public ArrayList<String> listAuctions(){
 		try {
 			FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
@@ -202,6 +206,11 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		return null;
 	}
 
+	/**
+	 * Display informations about an auction.
+	 * @param _auction_name a String, the name identify the auction.
+	 * @return string of informations if auctions exist, null otherwise.
+	 */
 	public String printAuction(String _auction_name){
 		try {
 			FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
@@ -235,6 +244,11 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		return null;
 	}
 	
+	/**
+	 * Check if you're the owner of the auction.
+	 * @param _auction_name a String, the name identify the auction.
+	 * @return true if you're the owner, false otherwise.
+	 */
 	public boolean checkOwner(String _auction_name){
 		try {
 			FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
@@ -271,6 +285,11 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		return false;
 	}
 
+	/**
+	 * Check if there is at least one bidder on an auction.
+	 * @param _auction_name a String, the name identify the auction.
+	 * @return true if there is a bidder, false otherwise.
+	 */
 	public boolean checkNoBidder(String _auction_name){
 		try {
 			FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
@@ -307,6 +326,14 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		return false;
 	}
 
+	/**
+	 * Modify an auction if you're the owner.
+	 * @param _auction_name a String, the name identify the auction.
+	 * @param _end_time a Date that is the end time of an auction.
+	 * @param _reserved_price a double value that is the reserve minimum pricing selling.
+	 * @param _description a String describing the selling goods in the auction.
+	 * @return true if the auction is correctly modified, false otherwise.
+	 */
 	public boolean modifyAuction(String _auction_name, Date _end_time, double _reserved_price, String _description){
 
 		Date now = new Date();
@@ -345,6 +372,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		}
 		return false;
 	}
+	
 	public boolean leaveNetwork() {
 		dht.peer().announceShutdown().start().awaitUninterruptibly();
 		return true;

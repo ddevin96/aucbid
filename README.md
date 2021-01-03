@@ -45,10 +45,15 @@ The package ```src/main/java/it/isislab/p2p/auctionbid/``` provides three Java c
   - _checkAuction_
   - _placeABid_
   - _listAuctions_
+    - display all auctions in the system
   - _printAuction_
+    - display all informations abount an auction
   - _checkOwner_
+    - check if you're the owner of the auction
   - _checkBidder_
+    - check if there is already a bidder on the auction
   - _modifyAuction_
+    - if you're the owner, you can modify date, reserved price or description
 - _Example_ an example REPL application of a peers network able to manage Auctions and bid through communication.
 
 The package ```src/test/java/it/isislab/p2p/auctionbid/``` provides one Java class:
