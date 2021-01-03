@@ -166,6 +166,36 @@ public class ExampleAuc {
 					}
 					break;
 				case 7:
+				terminal.printf("\nENTER AUCTION TO MODIFY: \n");
+				String modname = textIO.newStringInputReader()
+						.withDefaultValue("abc")
+						.read("Auction name:");
+				if(peer.checkOwner(modname)) {
+					if (peer.checkNoBidder(modname)) {
+						//you're the owner of bet
+						date = textIO.newStringInputReader()
+							.withDefaultValue("yyyy-mm-dd hh:mm:ss")
+							.read("Enter new expiration date: ");
+						newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
+						price = textIO.newDoubleInputReader()
+							.withDefaultValue(100.0)
+							.read("Enter new reserved price: ");
+						description = textIO.newStringInputReader()
+							.withDefaultValue("abcdef")
+							.read("Description of product: ");
+
+						if(peer.modifyAuction(modname, newDate, price, description))
+							terminal.printf("\nAUCTION SUCCESSFULLY MODIFIED\n");
+						else
+							terminal.printf("\nERROR IN AUCTION MODIFICATION\n");
+					} else {
+						terminal.printf("There is already a bidder on this auc!\n");
+					}
+				} else {
+					terminal.printf("You're not the owner\n");
+				}
+				break;
+				case 8:
 					terminal.printf("\nARE YOU SURE TO LEAVE THE NETWORK?\n");
 					boolean exit = textIO.newBooleanInputReader().withDefaultValue(false).read("exit?");
 					if(exit) {
@@ -196,7 +226,8 @@ public class ExampleAuc {
 		terminal.printf("\n4 - LIST ALL AUCTIONS \n");
 		terminal.printf("\n5 - PRINT ALL INFORMATIONS OF AN AUCTION \n");
 		terminal.printf("\n6 - CHECK YOUR BIDS\n");
-		terminal.printf("\n7 - LEAVE\n");
+		terminal.printf("\n7 - MODIFY YOUR AUCTION\n");
+		terminal.printf("\n8 - LEAVE\n");
 	}
 
 

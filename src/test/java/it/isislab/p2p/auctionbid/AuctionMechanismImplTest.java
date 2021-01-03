@@ -198,6 +198,7 @@ public class AuctionMechanismImplTest {
     }
 
     @Test
+    @Order(2)
     void testListAllAuctions(TestInfo testInfo) {
         peer0.createAuction("auto", new Date(), 100.0, "bel cane");
         peer1.createAuction("casa", new Date(), 100.0, "bella casa");
@@ -238,6 +239,101 @@ public class AuctionMechanismImplTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void testRightOwner(TestInfo testInfo) {
+        try {
+            peer0.createAuction("elsaowner", new Date(), 100.0, "bel cane");
+            assertTrue(peer0.checkOwner("elsaowner"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testWrongOwner(TestInfo testInfo) {
+        try {
+            peer0.createAuction("elsaowner2", new Date(), 100.0, "bel cane");
+            assertFalse(peer1.checkOwner("elsaowner2"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testIfThereIsBidder(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("elsabidder", newDate, 100.0, "bel cane");
+            peer1.placeAbid("elsabidder", 200);
+            assertFalse(peer0.checkNoBidder("elsabidder"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testNoBidder(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("elsanobid", newDate, 100.0, "bel cane");
+            assertTrue(peer0.checkNoBidder("elsanobid"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testModifyAuctionCorrect(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("auctomodify", newDate, 100.0, "bella auc");
+            Date modifiedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-12-03 12:53:23");
+
+            assertTrue(peer0.modifyAuction("auctomodify", modifiedDate, 200.0, "bella modified auc"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testModifyAuctionIncorrectDate(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("auctomodify2", newDate, 100.0, "bella auc");
+            Date modifiedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2015-12-03 12:53:23");
+
+            assertFalse(peer0.modifyAuction("auctomodify2", modifiedDate, 200.0, "bella modified auc"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testModifyAuctionIncorrectPrice(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("auctomodify3", newDate, 100.0, "bella auc");
+
+            assertFalse(peer0.modifyAuction("auctomodify3", newDate, -200.0, "bella modified auc"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testModifyAuctionIncorrectOwner(TestInfo testInfo) {
+        try {
+            Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
+            peer0.createAuction("auctomodify4", newDate, 100.0, "bella auc");
+            Date modifiedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-12-03 12:53:23");
+            assertFalse(peer1.modifyAuction("auctomodify4", modifiedDate, 200.0, "bella modified auc"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Test
     void testLeaveNetwork(){

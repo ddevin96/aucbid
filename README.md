@@ -46,6 +46,9 @@ The package ```src/main/java/it/isislab/p2p/auctionbid/``` provides three Java c
   - _placeABid_
   - _listAuctions_
   - _printAuction_
+  - _checkOwner_
+  - _checkBidder_
+  - _modifyAuction_
 - _Example_ an example REPL application of a peers network able to manage Auctions and bid through communication.
 
 The package ```src/test/java/it/isislab/p2p/auctionbid/``` provides one Java class:
@@ -88,6 +91,22 @@ Here are all the test passing:
   - Check if the print of informations of an auction is correct
 - _testPrintAuctionNotInList
   - Try to display an auction not in list
+- _testRightOwner_
+  - Check if we are the owner
+- _testWrongOwner_
+  - Check if we are the owner
+- _testIfThereIsBidder_
+  - Check if there is already a bidder
+- _testNoBidder_
+  - Check if there is no bidder
+- _testModifyAuctionCorrect_
+  - Try to modify correctly an auction
+- _testModifyAuctionIncorrectDate_
+  - Try to modify incorrectly an auction with wrong date
+- _testModifyAuctionIncorrectPrice_
+  - Try to modify incorrectly an auction with wrong price
+- _testModifyAuctionIncorrectOwner_
+  - Try to modify incorrectly an auction by user not owner
 - _testLeaveNetwork_ 
   - Check if leaving the network is succesfull
 

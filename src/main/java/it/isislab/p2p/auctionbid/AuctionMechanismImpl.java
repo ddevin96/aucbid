@@ -235,6 +235,116 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		return null;
 	}
 	
+	public boolean checkOwner(String _auction_name){
+		try {
+			FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
+			futureGet.awaitUninterruptibly();
+
+			if (futureGet.isSuccess()) {
+				//if is empty peer has to create the list first 
+				if(futureGet.isEmpty()) {
+					dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+					return false;
+				}
+				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+
+				// control if the list has the auction name in it
+				if (auctions_names.contains(_auction_name)) {
+					FutureGet futureGet2 = dht.get(Number160.createHash(_auction_name)).start();
+					futureGet2.awaitUninterruptibly();
+
+					if (futureGet2.isSuccess()) {
+						Auction auction = (Auction) futureGet2.dataMap().values().iterator().next().object();
+						
+						if (owner == auction.get_owner())
+							return true;
+						else
+							return false;
+					} else {
+						return false;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean checkNoBidder(String _auction_name){
+		try {
+			FutureGet futureGet = dht.get(Number160.createHash("auctions")).start();
+			futureGet.awaitUninterruptibly();
+
+			if (futureGet.isSuccess()) {
+				//if is empty peer has to create the list first 
+				if(futureGet.isEmpty()) {
+					dht.put(Number160.createHash("auctions")).data(new Data(auctions_names)).start().awaitUninterruptibly();
+					return false;
+				}
+				auctions_names = (ArrayList<String>) futureGet.dataMap().values().iterator().next().object();
+
+				// control if the list has the auction name in it
+				if (auctions_names.contains(_auction_name)) {
+					FutureGet futureGet2 = dht.get(Number160.createHash(_auction_name)).start();
+					futureGet2.awaitUninterruptibly();
+
+					if (futureGet2.isSuccess()) {
+						Auction auction = (Auction) futureGet2.dataMap().values().iterator().next().object();
+						
+						if (auction.get_max_bid_id() == -1)
+							return true;
+						else
+							return false;
+					} else {
+						return false;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean modifyAuction(String _auction_name, Date _end_time, double _reserved_price, String _description){
+
+		Date now = new Date();
+
+		//compare actual time with end time of the bid
+		if (now.after(_end_time) || _reserved_price < 0)
+			return false;
+
+		//check if the auction exist
+		try {
+			if (checkAuction(_auction_name) != null) {
+				FutureGet futureGet = dht.get(Number160.createHash(_auction_name)).start();
+				futureGet.awaitUninterruptibly();
+
+				if (futureGet.isSuccess()) {
+					Auction auction = (Auction) futureGet.dataMap().values().iterator().next().object();
+
+					if (owner == auction.get_owner()) {
+						auction.set_end_time(_end_time);
+						auction.set_reserved_price(_reserved_price);
+						auction.set_description(_description);
+						dht.put(Number160.createHash(_auction_name)).data(new Data(auction)).start().awaitUninterruptibly();
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			} else {
+				//auction not find
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	public boolean leaveNetwork() {
 		dht.peer().announceShutdown().start().awaitUninterruptibly();
 		return true;
