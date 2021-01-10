@@ -20,7 +20,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 @TestMethodOrder(OrderAnnotation.class)
 public class AuctionMechanismImplTest {
     
-    static AuctionMechanismImpl peer0, peer1, peer2;
+    static AuctionMechanismImpl peer0, peer1, peer2, peer3;
 
     public AuctionMechanismImplTest() {
 
@@ -47,7 +47,28 @@ public class AuctionMechanismImplTest {
         peer0 = new AuctionMechanismImpl(0, "127.0.0.1", new MessageListenerImpl(0));
         peer1 = new AuctionMechanismImpl(1, "127.0.0.1", new MessageListenerImpl(1));
         peer2 = new AuctionMechanismImpl(2, "127.0.0.1", new MessageListenerImpl(2));
+        peer3 = new AuctionMechanismImpl(2, "127.0.0.1", new MessageListenerImpl(2));
+    }
 
+    @Test
+    @Order(1)
+    void testListAllAuctionsVoid(TestInfo testInfo) {
+        assertEquals(null, peer0.listAuctions());
+        ArrayList<String> arr = new ArrayList<String>();
+        assertEquals(arr, peer0.listAuctions());
+    }
+
+    @Test
+    @Order(2)
+    void testListAllAuctions(TestInfo testInfo) {
+        peer0.createAuction("auto", new Date(), 100.0, "bel cane");
+        peer1.createAuction("casa", new Date(), 100.0, "bella casa");
+        peer0.createAuction("libro", new Date(), 100.0, "bel libro");
+        ArrayList<String> arr = new ArrayList<String>();
+        arr.add("auto");
+        arr.add("casa");
+        arr.add("libro");
+        assertEquals(arr, peer0.listAuctions());
     }
 
     @Test
@@ -198,27 +219,6 @@ public class AuctionMechanismImplTest {
     }
 
     @Test
-    @Order(2)
-    void testListAllAuctions(TestInfo testInfo) {
-        peer0.createAuction("auto", new Date(), 100.0, "bel cane");
-        peer1.createAuction("casa", new Date(), 100.0, "bella casa");
-        peer0.createAuction("libro", new Date(), 100.0, "bel libro");
-        ArrayList<String> arr = new ArrayList<String>();
-        arr.add("auto");
-        arr.add("casa");
-        arr.add("libro");
-        assertEquals(arr, peer0.listAuctions());
-    }
-
-    @Test
-    @Order(1)
-    void testListAllAuctionsVoid(TestInfo testInfo) {
-        assertEquals(null, peer0.listAuctions());
-        ArrayList<String> arr = new ArrayList<String>();
-        assertEquals(arr, peer0.listAuctions());
-    }
-
-    @Test
     void testPrintAuction(TestInfo testInfo) {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
@@ -338,6 +338,7 @@ public class AuctionMechanismImplTest {
     @Test
     void testLeaveNetwork(){
         assertTrue(peer2.leaveNetwork());
+        assertTrue(peer3.leaveNetwork());
     }
 
 }

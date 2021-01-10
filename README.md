@@ -88,8 +88,10 @@ Here are all the test passing:
 - _testWinnerAuc
   - Check if you've won the auction
 - _testListAllAuctions_
+  - This is flagged with order 2 to be sure that there isn't any conflicts
   - Check if all auctions listed are correct
 - _testListAllAuctionsVoid
+  - This is flagged with order 1 to be sure that there isn't any conflicts
   - Try to display the list for first time
   - Try to display the empty list
 - _testPrintAuction_
