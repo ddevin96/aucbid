@@ -47,7 +47,7 @@ public class AuctionMechanismImplTest {
         peer0 = new AuctionMechanismImpl(0, "127.0.0.1", new MessageListenerImpl(0));
         peer1 = new AuctionMechanismImpl(1, "127.0.0.1", new MessageListenerImpl(1));
         peer2 = new AuctionMechanismImpl(2, "127.0.0.1", new MessageListenerImpl(2));
-        peer3 = new AuctionMechanismImpl(2, "127.0.0.1", new MessageListenerImpl(2));
+        peer3 = new AuctionMechanismImpl(3, "127.0.0.1", new MessageListenerImpl(3));
     }
 
     @Test
