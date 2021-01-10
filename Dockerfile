@@ -1,6 +1,6 @@
 FROM alpine/git
 WORKDIR /app
-RUN git clone https://github.com/ddevin96/aucbid.git
+RUN git clone https://github.com/ddevin96/daniele_devinco_adc_2020.git
 
 FROM maven:3.5-jdk-8-alpine
 WORKDIR /app
