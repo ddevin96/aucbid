@@ -4,7 +4,7 @@ RUN git clone https://github.com/ddevin96/daniele_devinco_adc_2020.git
 
 FROM maven:3.5-jdk-8-alpine
 WORKDIR /app
-COPY --from=0 /app/aucbid /app
+COPY --from=0 /app/daniele_devinco_adc_2020 /app
 RUN mvn package
 
 FROM openjdk:8-jre-alpine
