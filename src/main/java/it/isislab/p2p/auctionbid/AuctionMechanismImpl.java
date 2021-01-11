@@ -57,7 +57,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 			if (checkAuction(_auction_name) == null) {
 				
 				if (_reserved_price < 0) {
-					//date already expired or negative price
+					//negative price not allowed
 					return false;
 				} 
 				Auction auction = new Auction(_auction_name, _end_time, _reserved_price, _description, owner);
@@ -127,6 +127,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 
 	public String placeAbid(String _auction_name, double _bid_amount){
 
+		//negative bid not allowed
 		if (_bid_amount <= 0) {
 			return "Insert a valid number";
 		}
@@ -351,6 +352,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 				if (futureGet.isSuccess()) {
 					Auction auction = (Auction) futureGet.dataMap().values().iterator().next().object();
 
+					//if i'm the owner i can modify
 					if (owner == auction.get_owner()) {
 						auction.set_end_time(_end_time);
 						auction.set_reserved_price(_reserved_price);
@@ -372,7 +374,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 		}
 		return false;
 	}
-	
+
 	public boolean leaveNetwork() {
 		dht.peer().announceShutdown().start().awaitUninterruptibly();
 		return true;
