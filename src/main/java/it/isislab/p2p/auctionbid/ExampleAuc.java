@@ -1,12 +1,8 @@
 package it.isislab.p2p.auctionbid;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
-import java.util.Locale;
 
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
