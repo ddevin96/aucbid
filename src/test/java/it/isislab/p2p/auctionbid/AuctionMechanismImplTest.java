@@ -199,17 +199,17 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new Date();
             int sec = newDate.getSeconds();
+            int min = newDate.getMinutes();
             if (sec < 50)
-                newDate.setSeconds(sec + 10);
+                newDate.setSeconds(sec+10);
             else {
-                Thread.sleep(10000);
-                newDate = new Date();
-                sec = newDate.getSeconds();
-                newDate.setSeconds(sec + 10);
+                newDate.setMinutes(min+1);
+                newDate.setSeconds(5);
             }
-            peer0.createAuction("winning", newDate, 100.0, "wiiiiin");
-            peer1.placeAbid("winning", 200);
-            Thread.sleep(10000);
+            assertTrue(peer0.createAuction("winning", newDate, 100.0, "wiiiiin"));
+            assertEquals("You placed the bet!", peer1.placeAbid("winning", 200));
+
+            Thread.sleep(15000);
             assertEquals("THIS AUCTION IS EXPIRED\n" + "winning"
             + "\n" + "You win. You pay: 100.0", peer1.checkAuction("winning"));
         } catch (Exception e) {
