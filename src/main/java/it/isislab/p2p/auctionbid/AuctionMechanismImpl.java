@@ -286,7 +286,7 @@ public class AuctionMechanismImpl implements AuctionMechanism{
 	/**
 	 * Check if there is at least one bidder on an auction.
 	 * @param _auction_name a String, the name identify the auction.
-	 * @return true if there is a bidder, false otherwise.
+	 * @return true if there isn't a bidder, false otherwise.
 	 */
 	public boolean checkNoBidder(String _auction_name){
 		try {
