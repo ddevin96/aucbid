@@ -87,8 +87,6 @@ Here are all the test passing:
   - Try to bid on your own bid
 - _testWinningAuc_
   - Check if you're winning the auction
-- _testWinnerAuc
-  - Check if you've won the auction
 - _testListAllAuctions_
   - This is flagged with order 2 to be sure that there isn't any conflicts
   - Check if all auctions listed are correct
