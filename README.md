@@ -7,7 +7,7 @@ Each peer can sell and buy goods using second-price Auctions (eBay). Second-pric
 
 ## Demo
 
-![preview](https://giphy.com/gifs/ylKLH59pdMzEOUom81)
+![preview](https://media.giphy.com/media/ylKLH59pdMzEOUom81/source.gif)
 
 ## Project Structure
 
