@@ -241,7 +241,7 @@ public class AuctionMechanismImplTest {
         try {
             Date newDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-12-03 12:53:23");
             peer0.createAuction("elsabidder", newDate, 100.0, "bel cane");
-            peer1.placeAbid("elsabidder", 200);
+            assertEquals("You placed the bet!", peer1.placeAbid("elsabidder", 200));
             Thread.sleep(3000);
             assertFalse(peer0.checkNoBidder("elsabidder"));
         } catch (Exception e) {
