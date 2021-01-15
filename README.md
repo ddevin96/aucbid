@@ -37,9 +37,9 @@ The package ```src/main/java/it/isislab/p2p/auctionbid/``` provides three Java c
     - max_bid
     - max_bid_id
     - slot
-      - array to memorize which slot have all the bidders
+      - _array to memorize which slot have all the bidders
     - bids
-      - array to memorize all the bids placed on the auction
+      - _array to memorize all the bids placed on the auction
 - _MessageListener_ a interface for listener of messages received by a peer.
 - _AuctionMechanism_ a interface that defines the AuctionBid communication paradigm.	
 - _AuctionMechanismImpl_ an implementation of the AuctionBid interface that exploits the TomP2P library.
