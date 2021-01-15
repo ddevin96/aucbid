@@ -118,6 +118,8 @@ Here are all the test passing:
   - Check if leaving the network is succesfull
 
 The build is tested through CI with github actions:
+In this rough implementations, sometimes the build is not passing, but the overall test suite is ok on local.
+If you build it through the dockerfile, it will succeed. 
 
 ```yml
 name: Java CI with Maven
